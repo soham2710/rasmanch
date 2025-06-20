@@ -13,6 +13,7 @@ export const uploadToCloudinary = async (file, folder = 'rajasthan-revival') => 
       resource_type: 'auto',
     });
     return result;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     throw new Error('Upload failed');
   }
