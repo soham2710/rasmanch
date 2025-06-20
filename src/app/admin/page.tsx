@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 // app/admin/page.tsx - Improved Admin Dashboard with ESLint fixes
 'use client';
 import { useState, useEffect } from 'react';
@@ -62,7 +61,7 @@ interface ContactMessage {
 }
 
 interface ExportData {
-  [key: string]: string | number | boolean | Date;
+  [key: string]: string | number | boolean | Date | string[] | { toDate: () => Date };
 }
 
 interface RoleCount {
@@ -103,6 +102,7 @@ const AdminPage = () => {
     if (!loading) {
       fetchAllData();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
 
   const fetchAllData = async () => {
@@ -173,7 +173,7 @@ const AdminPage = () => {
     }
   };
 
-  const exportToCSV = (data: ExportData[], filename: string) => {
+  const exportToCSV = (data: Supporter[] | ContactMessage[], filename: string) => {
     if (!data.length) {
       toast.error('No data to export');
       return;
