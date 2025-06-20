@@ -16,7 +16,7 @@ export interface Supporter {
   interests: string[];
   message?: string;
   verified: boolean;
-  timestamp: never;
+  timestamp: unknown;
   status: 'active' | 'pending' | 'inactive';
 }
 
@@ -39,6 +39,14 @@ export interface FormData {
   message?: string;
   supportConsent: boolean;
   updatesConsent: boolean;
+}
+
+// Home page stats interface
+export interface Stats {
+  supporters: number;
+  events: number;
+  artists: number;
+  cities: number;
 }
 
 // New types for the combined overview page

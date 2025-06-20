@@ -1,4 +1,4 @@
-// app/page.tsx - Home Page
+// app/page.tsx - Home Page with Fixed TypeScript Errors
 'use client';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -27,7 +27,7 @@ const HomePage = () => {
   useEffect(() => {
     // Animate counter on mount
     const interval = setInterval(() => {
-      setStats(prev => ({
+      setStats((prev: Stats) => ({
         supporters: Math.min(prev.supporters + 13, 1247),
         events: Math.min(prev.events + 1, 12),
         artists: Math.min(prev.artists + 3, 89),
@@ -202,7 +202,7 @@ const HomePage = () => {
           </div>
 
           <div className="text-center mt-12">
-            <Link href="/problem">
+            <Link href="/overview">
               <Button size="lg">
                 Learn More About the Challenge
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -248,9 +248,9 @@ const HomePage = () => {
                 </li>
               </ul>
               <div className="mt-8">
-                <Link href="/vision">
+                <Link href="/overview">
                   <Button size="lg" className="bg-white text-royal-600 hover:bg-gray-100">
-                    Download Full Proposal
+                    View Complete Overview
                   </Button>
                 </Link>
               </div>
