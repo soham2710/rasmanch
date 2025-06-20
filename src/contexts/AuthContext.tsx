@@ -1,4 +1,4 @@
-// contexts/AuthContext.tsx
+// contexts/AuthContext.tsx - Fixed version with TypeScript errors resolved
 'use client';
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { 
@@ -6,7 +6,8 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
-  User as FirebaseUser
+  User as FirebaseUser,
+  Auth
 } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 
@@ -60,7 +61,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser: FirebaseUser | null) => {
+    if (!auth) {
+      console.error('Firebase Auth not initialized');
+      setLoading(false);
+      return;
+    }
+
+    const unsubscribe = onAuthStateChanged(auth as Auth, (firebaseUser: FirebaseUser | null) => {
       if (firebaseUser) {
         setUser({
           uid: firebaseUser.uid,
@@ -77,8 +84,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }, []);
 
   const login = async (email: string, password: string): Promise<void> => {
+    if (!auth) {
+      throw new Error('Firebase Auth not initialized');
+    }
+    
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth as Auth, email, password);
     } catch (error) {
       console.error('Login error:', error);
       throw error;
@@ -86,8 +97,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const signup = async (email: string, password: string): Promise<void> => {
+    if (!auth) {
+      throw new Error('Firebase Auth not initialized');
+    }
+    
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      await createUserWithEmailAndPassword(auth as Auth, email, password);
     } catch (error) {
       console.error('Signup error:', error);
       throw error;
@@ -95,8 +110,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const logout = async (): Promise<void> => {
+    if (!auth) {
+      throw new Error('Firebase Auth not initialized');
+    }
+    
     try {
-      await signOut(auth);
+      await signOut(auth as Auth);
     } catch (error) {
       console.error('Logout error:', error);
       throw error;

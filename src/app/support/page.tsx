@@ -1,4 +1,4 @@
-// app/support/page.tsx - Working Support Page with Real OTP
+// app/support/page.tsx - Fixed Support Page with Firebase Type Errors Resolved
 'use client';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -17,7 +17,7 @@ import {
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Textarea } from '@/components/ui/Textarea';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, Firestore } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import toast from 'react-hot-toast';
 import { FormData } from '@/types';
@@ -148,6 +148,10 @@ const SupportPage = () => {
     setLoading(true);
 
     try {
+      if (!db) {
+        throw new Error('Firestore database not initialized');
+      }
+
       // Prepare data for Firebase
       const supporterData = {
         firstName: data.firstName,
@@ -165,7 +169,7 @@ const SupportPage = () => {
         status: 'active'
       };
 
-      await addDoc(collection(db, 'supporters'), supporterData);
+      await addDoc(collection(db as Firestore, 'supporters'), supporterData);
       toast.success('Thank you for joining the movement!');
       setStep(3); // Show success page
     } catch (error) {
