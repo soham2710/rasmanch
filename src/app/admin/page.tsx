@@ -1,4 +1,4 @@
-// app/admin/page.tsx - Improved Admin Dashboard with ESLint fixes
+// app/admin/page.tsx - Fixed Admin Dashboard with TypeScript errors resolved
 'use client';
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
@@ -27,7 +27,16 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import { collection, getDocs, deleteDoc, doc, updateDoc, query, orderBy } from 'firebase/firestore';
+import { 
+  collection, 
+  getDocs, 
+  deleteDoc, 
+  doc, 
+  updateDoc, 
+  query, 
+  orderBy,
+  Firestore 
+} from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import toast from 'react-hot-toast';
 
@@ -113,7 +122,11 @@ const AdminPage = () => {
 
   const fetchSupporters = async () => {
     try {
-      const q = query(collection(db, 'supporters'), orderBy('timestamp', 'desc'));
+      if (!db) {
+        throw new Error('Firestore database not initialized');
+      }
+      
+      const q = query(collection(db as Firestore, 'supporters'), orderBy('timestamp', 'desc'));
       const querySnapshot = await getDocs(q);
       const supportersData: Supporter[] = [];
       querySnapshot.forEach((docSnapshot) => {
@@ -128,7 +141,11 @@ const AdminPage = () => {
 
   const fetchContacts = async () => {
     try {
-      const q = query(collection(db, 'contacts'), orderBy('timestamp', 'desc'));
+      if (!db) {
+        throw new Error('Firestore database not initialized');
+      }
+      
+      const q = query(collection(db as Firestore, 'contacts'), orderBy('timestamp', 'desc'));
       const querySnapshot = await getDocs(q);
       const contactsData: ContactMessage[] = [];
       querySnapshot.forEach((docSnapshot) => {
@@ -145,7 +162,11 @@ const AdminPage = () => {
     if (!confirm('Are you sure you want to delete this entry?')) return;
     
     try {
-      await deleteDoc(doc(db, collectionName, id));
+      if (!db) {
+        throw new Error('Firestore database not initialized');
+      }
+      
+      await deleteDoc(doc(db as Firestore, collectionName, id));
       if (collectionName === 'supporters') {
         setSupporters(supporters.filter(s => s.id !== id));
       } else {
@@ -160,7 +181,11 @@ const AdminPage = () => {
 
   const handleStatusUpdate = async (collectionName: string, id: string, newStatus: string) => {
     try {
-      await updateDoc(doc(db, collectionName, id), { status: newStatus });
+      if (!db) {
+        throw new Error('Firestore database not initialized');
+      }
+      
+      await updateDoc(doc(db as Firestore, collectionName, id), { status: newStatus });
       if (collectionName === 'supporters') {
         setSupporters(supporters.map(s => s.id === id ? { ...s, status: newStatus as Supporter['status'] } : s));
       } else {
