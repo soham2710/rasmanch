@@ -1,0 +1,268 @@
+@import "tailwindcss";
+
+@theme {
+  /* Royal Purple - Deep, majestic, traditional royalty */
+  --color-royal-50: #faf7ff;
+  --color-royal-100: #f3ebff;
+  --color-royal-200: #e9d8ff;
+  --color-royal-300: #d8b6ff;
+  --color-royal-400: #c084fc;
+  --color-royal-500: #a855f7;
+  --color-royal-600: #8b5fbf;
+  --color-royal-700: #7c3aed;
+  --color-royal-800: #6b21a8;
+  --color-royal-900: #581c87;
+  --color-royal-950: #3b0764;
+
+  /* Imperial Gold - Luxurious, warm, regal */
+  --color-gold-50: #fffbeb;
+  --color-gold-100: #fef3c7;
+  --color-gold-200: #fde68a;
+  --color-gold-300: #fcd34d;
+  --color-gold-400: #fbbf24;
+  --color-gold-500: #f59e0b;
+  --color-gold-600: #d97706;
+  --color-gold-700: #b45309;
+  --color-gold-800: #92400e;
+  --color-gold-900: #78350f;
+  --color-gold-950: #451a03;
+
+  /* Burgundy - Rich, sophisticated, royal wine */
+  --color-burgundy-50: #fef2f2;
+  --color-burgundy-100: #fee2e2;
+  --color-burgundy-200: #fecaca;
+  --color-burgundy-300: #fca5a5;
+  --color-burgundy-400: #f87171;
+  --color-burgundy-500: #ef4444;
+  --color-burgundy-600: #dc2626;
+  --color-burgundy-700: #b91c1c;
+  --color-burgundy-800: #991b1b;
+  --color-burgundy-900: #7f1d1d;
+  --color-burgundy-950: #450a0a;
+
+  /* Emerald - Royal green, precious, noble */
+  --color-emerald-50: #ecfdf5;
+  --color-emerald-100: #d1fae5;
+  --color-emerald-200: #a7f3d0;
+  --color-emerald-300: #6ee7b7;
+  --color-emerald-400: #34d399;
+  --color-emerald-500: #10b981;
+  --color-emerald-600: #059669;
+  --color-emerald-700: #047857;
+  --color-emerald-800: #065f46;
+  --color-emerald-900: #064e3b;
+  --color-emerald-950: #022c22;
+
+  /* Sapphire - Deep blue, royal, timeless */
+  --color-sapphire-50: #eff6ff;
+  --color-sapphire-100: #dbeafe;
+  --color-sapphire-200: #bfdbfe;
+  --color-sapphire-300: #93c5fd;
+  --color-sapphire-400: #60a5fa;
+  --color-sapphire-500: #3b82f6;
+  --color-sapphire-600: #2563eb;
+  --color-sapphire-700: #1d4ed8;
+  --color-sapphire-800: #1e40af;
+  --color-sapphire-900: #1e3a8a;
+  --color-sapphire-950: #172554;
+
+  /* Copper - Warm metallic, traditional, earthy royal */
+  --color-copper-50: #fef7f0;
+  --color-copper-100: #feecdc;
+  --color-copper-200: #fcd9bd;
+  --color-copper-300: #fdba8c;
+  --color-copper-400: #ff8a4c;
+  --color-copper-500: #ff5a1f;
+  --color-copper-600: #ea580c;
+  --color-copper-700: #c2410c;
+  --color-copper-800: #9a3412;
+  --color-copper-900: #7c2d12;
+  --color-copper-950: #431407;
+
+  /* Desert Sand - Keep original for cultural connection */
+  --color-desert-50: #fef7ee;
+  --color-desert-100: #feecd7;
+  --color-desert-200: #fcd5ae;
+  --color-desert-300: #f9b87a;
+  --color-desert-400: #f59545;
+  --color-desert-500: #ed7315;
+  --color-desert-600: #de5a0b;
+  --color-desert-700: #b8430c;
+  --color-desert-800: #953612;
+  --color-desert-900: #782f12;
+
+  /* Font families */
+  --font-family-royal: var(--font-royal), serif;
+  --font-family-hindi: var(--font-hindi), sans-serif;
+  --font-family-sans: var(--font-sans), sans-serif;
+
+  /* Custom shadows for royal feel */
+  --shadow-royal: 0 25px 50px -12px rgba(139, 95, 191, 0.25);
+  --shadow-gold: 0 25px 50px -12px rgba(245, 158, 11, 0.25);
+  --shadow-emerald: 0 25px 50px -12px rgba(16, 185, 129, 0.25);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-gradient-to-br from-royal-50 via-white to-gold-50 text-gray-900;
+}
+
+.font-royal {
+  font-family: var(--font-royal), serif;
+}
+
+.font-hindi {
+  font-family: var(--font-hindi), sans-serif;
+}
+
+.font-cinzel {
+  font-family: 'Cinzel', serif;
+}
+
+/* Custom scrollbar with royal theme */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-royal-50;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gradient-to-b from-royal-400 to-royal-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gradient-to-b from-royal-500 to-royal-700;
+}
+
+/* Royal animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Royal gradient utilities */
+.gradient-royal {
+  @apply bg-gradient-to-r from-royal-600 via-royal-700 to-burgundy-600;
+}
+
+.gradient-gold {
+  @apply bg-gradient-to-r from-gold-500 via-gold-600 to-copper-600;
+}
+
+.gradient-text-royal {
+  @apply bg-gradient-to-r from-royal-600 via-royal-700 to-burgundy-600 bg-clip-text text-transparent;
+}
+
+.gradient-text-gold {
+  @apply bg-gradient-to-r from-gold-500 via-gold-600 to-copper-600 bg-clip-text text-transparent;
+}
+
+/* Hero section enhanced styles */
+.hero-bg {
+  background: linear-gradient(135deg, 
+    rgba(139, 95, 191, 0.9) 0%, 
+    rgba(124, 58, 237, 0.8) 25%,
+    rgba(185, 28, 28, 0.7) 75%,
+    rgba(245, 158, 11, 0.6) 100%),
+    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="royal-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100%" height="100%" fill="url(%23royal-pattern)"/></svg>');
+}
+
+.hero-pattern {
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 2px, transparent 2px),
+    radial-gradient(circle at 80% 50%, rgba(245, 158, 11, 0.1) 2px, transparent 2px),
+    radial-gradient(circle at 40% 80%, rgba(139, 95, 191, 0.1) 2px, transparent 2px);
+  background-size: 100px 100px, 150px 150px, 200px 200px;
+}
+
+/* Glass morphism effects */
+.glass {
+  @apply bg-white/10 backdrop-blur-lg border border-white/20;
+}
+
+.glass-royal {
+  @apply bg-royal-500/10 backdrop-blur-lg border border-royal-300/20;
+}
+
+.glass-gold {
+  @apply bg-gold-500/10 backdrop-blur-lg border border-gold-300/20;
+}
+
+/* Section transitions enhanced */
+.section-enter {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s ease-out;
+}
+
+.section-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Royal card styles */
+.royal-card {
+  @apply bg-gradient-to-br from-white via-royal-50/50 to-gold-50/30 
+         border border-royal-200/50 shadow-xl shadow-royal-200/20
+         hover:shadow-2xl hover:shadow-royal-300/30 
+         transition-all duration-300 hover:scale-105;
+}
+
+.royal-button {
+  @apply bg-gradient-to-r from-royal-600 to-royal-700 
+         hover:from-royal-700 hover:to-royal-800
+         text-white font-medium shadow-lg shadow-royal-300/30
+         hover:shadow-xl hover:shadow-royal-400/40
+         transition-all duration-300 transform hover:scale-105;
+}
+
+.gold-button {
+  @apply bg-gradient-to-r from-gold-500 to-gold-600 
+         hover:from-gold-600 hover:to-gold-700
+         text-white font-medium shadow-lg shadow-gold-300/30
+         hover:shadow-xl hover:shadow-gold-400/40
+         transition-all duration-300 transform hover:scale-105;
+}
