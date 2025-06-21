@@ -1,4 +1,4 @@
-// app/auth/page.tsx - Updated Authentication Page
+// app/auth/page.tsx - Updated Authentication Page with New Brand Colors
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -60,23 +60,23 @@ const AuthPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-royal-50 to-desert-50 pt-24 pb-12 flex items-center justify-center">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-yellow-50 pt-24 pb-12 flex items-center justify-center">
       <div className="max-w-md w-full mx-4">
-        <div className="bg-white rounded-2xl shadow-2xl border border-royal-100 overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-2xl border border-amber-100 overflow-hidden">
           {/* Enhanced Header */}
-          <div className="bg-gradient-to-r from-royal-600 via-purple-600 to-royal-700 px-8 py-8 text-center relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-royal-400/50 to-purple-400/50 animate-pulse"></div>
+          <div className="bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-700 px-8 py-8 text-center relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-amber-400/50 to-yellow-400/50 animate-pulse"></div>
             <div className="relative">
               <div className="flex justify-center mb-4">
                 <div className="relative">
                   <div className="p-3 bg-white/20 rounded-full backdrop-blur-sm">
                     <Crown className="h-10 w-10 text-white" />
                   </div>
-                  <Sparkles className="absolute -top-1 -right-1 h-5 w-5 text-gold-300 animate-pulse" />
+                  <Sparkles className="absolute -top-1 -right-1 h-5 w-5 text-yellow-200 animate-pulse" />
                 </div>
               </div>
               <h1 className="text-2xl font-royal font-bold text-white">
-                {isLogin ? 'Welcome Back' : 'Join Rasmanch'}
+                {isLogin ? 'Welcome Back' : 'Join Screen Stage Forum'}
               </h1>
               <p className="text-white/90 mt-2">
                 {isLogin 
@@ -101,7 +101,7 @@ const AuthPage = () => {
                   value={formData.email}
                   onChange={handleInputChange}
                   placeholder="Enter your email"
-                  className="pl-10 h-12 rounded-xl border-2 border-gray-200 focus:border-royal-500 transition-colors"
+                  className="pl-10 h-12 rounded-xl border-2 border-gray-200 focus:border-amber-500 transition-colors"
                   required
                 />
               </div>
@@ -119,7 +119,7 @@ const AuthPage = () => {
                   value={formData.password}
                   onChange={handleInputChange}
                   placeholder="Enter your password"
-                  className="pl-10 h-12 rounded-xl border-2 border-gray-200 focus:border-royal-500 transition-colors"
+                  className="pl-10 h-12 rounded-xl border-2 border-gray-200 focus:border-amber-500 transition-colors"
                   required
                 />
               </div>
@@ -138,7 +138,7 @@ const AuthPage = () => {
                     value={formData.confirmPassword}
                     onChange={handleInputChange}
                     placeholder="Confirm your password"
-                    className="pl-10 h-12 rounded-xl border-2 border-gray-200 focus:border-royal-500 transition-colors"
+                    className="pl-10 h-12 rounded-xl border-2 border-gray-200 focus:border-amber-500 transition-colors"
                     required
                   />
                 </div>
@@ -148,7 +148,7 @@ const AuthPage = () => {
             <Button
               type="submit"
               size="lg"
-              className="w-full h-12 rounded-xl bg-gradient-to-r from-royal-600 to-purple-600 hover:from-royal-700 hover:to-purple-700 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+              className="w-full h-12 rounded-xl bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-700 hover:to-yellow-700 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
               disabled={loading}
             >
               {loading ? (
@@ -172,7 +172,7 @@ const AuthPage = () => {
               <button
                 type="button"
                 onClick={() => setIsLogin(!isLogin)}
-                className="text-royal-600 hover:text-royal-700 font-medium transition-colors"
+                className="text-amber-600 hover:text-amber-700 font-medium transition-colors"
               >
                 {isLogin ? 'Sign up' : 'Sign in'}
               </button>
@@ -181,7 +181,7 @@ const AuthPage = () => {
         </div>
 
         {/* Info Card */}
-        <div className="mt-6 bg-white/80 backdrop-blur-sm rounded-xl p-4 text-center border border-royal-100">
+        <div className="mt-6 bg-white/80 backdrop-blur-sm rounded-xl p-4 text-center border border-amber-100">
           <p className="text-sm text-gray-600">
             Join the movement to revive Rajasthani cinema and culture
           </p>

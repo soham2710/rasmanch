@@ -1,4 +1,4 @@
-// app/support/page.tsx - Fixed Support Page with Firebase Type Errors Resolved
+// app/support/page.tsx - Enhanced Support Page with Hindi/English Petition Toggle
 'use client';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -6,13 +6,15 @@ import { motion } from 'framer-motion';
 import { 
   CheckCircle,
   Download,
-  Users,
   Crown,
-  Award,
-  Film,
   AlertCircle,
   Mail,
-  Phone
+  Phone,
+  Building,
+  GraduationCap,
+  Camera,
+  Megaphone,
+  Globe
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -35,32 +37,100 @@ const SupportPage = () => {
   const [captchaAnswer, setCaptchaAnswer] = useState('');
   const [captchaQuestion] = useState('7 + 4');
   const [step, setStep] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [language, setLanguage] = useState<'english' | 'hindi'>('english');
 
-  const { register, handleSubmit, formState: { errors }, watch } = useForm<FormData>();
+  const { register, handleSubmit, formState: { errors }, watch, setValue } = useForm<FormData>();
 
-  const roles = [
-    'Artist / Folk Musician',
-    'Writer / Screenwriter', 
-    'Director / Filmmaker',
-    'Student / College Member',
-    'Professor / Institution Representative',
-    'Government Official',
-    'Philanthropist / Sponsor',
-    'Volunteer / Activist',
-    'Media / Journalist',
-    'Other'
+  // Main categories for support
+  const supportCategories = [
+    {
+      id: 'government',
+      title: 'Government Bodies',
+      icon: <Building className="h-8 w-8" />,
+      description: 'Policy support & reforms',
+      color: 'from-blue-500 to-blue-600'
+    },
+    {
+      id: 'artists',
+      title: 'Artists & Technicians',
+      icon: <Camera className="h-8 w-8" />,
+      description: 'Join our creative collective',
+      color: 'from-purple-500 to-purple-600'
+    },
+    {
+      id: 'academic',
+      title: 'Academic Educators',
+      icon: <GraduationCap className="h-8 w-8" />,
+      description: 'Introduce media courses',
+      color: 'from-green-500 to-green-600'
+    },
+    {
+      id: 'media',
+      title: 'Media & Sponsors',
+      icon: <Megaphone className="h-8 w-8" />,
+      description: 'Fund events & infrastructure',
+      color: 'from-amber-500 to-amber-600'
+    }
   ];
 
-  const interests = [
-    'Promote Rajasthani Language Cinema',
-    'Support Art & Culture Events',
-    'Introduce Film Education in Colleges',
-    'Be a Part of a Cultural Association',
-    'Volunteer at Events / Festivals',
-    'Donate / Sponsor Activities',
-    'Policy Advocacy / Legal Framework',
-    'Support Youth & Artist Upliftment',
-    'Partner on Infrastructure Projects'
+  // Petition content in both languages
+  const petitionContent = {
+    english: {
+      title: "Petition for the Revival of Rajasthani Arts, Cultural & Cinema Revival Movement",
+      declaration: "Declaration of Support",
+      declarationText: "We, the undersigned—citizens, artists, educators, students, cultural enthusiasts, and supporters of India's diverse heritage—hereby urge the Government of Rajasthan and the relevant Central Ministries (Ministry of Culture, Ministry of Information & Broadcasting, Ministry of Tourism, and UGC) to formally support and implement a comprehensive policy framework to revive and institutionalise Rajasthani Cinema, Arts, and Culture.",
+      context: "Despite Rajasthan's vast contribution to Indian cinema as a shooting destination and to Indian culture through its unparalleled legacy of folk art, music, storytelling, and language diversity—local talent, institutions, and cultural ecosystems have remained underdeveloped, unsupported, and unstructured.",
+      belief: "We believe that with the right infrastructure, academic support, policy framework, and promotional initiatives, Rajasthan can become a national hub for regional cinema and cultural excellence.",
+      demands: "We Specifically Petition for the Following:",
+      demandsList: [
+        "Establishment of a Rajasthan Film Development Policy, with clearly defined subsidies, single-window clearances, and 60% Rajasthani inclusion criteria (cast, crew, culture, locations, etc.).",
+        "Creation of a Film City or Regional Media Hub in Rajasthan, with shooting floors, post-production units, costume/art departments, and skill centres.",
+        "Introduction of Film, Media, and Performing Arts Studies in Rajasthan's colleges and universities, with state-supported curriculum.",
+        "Formation of Recognised Creative Associations for Writers, Musicians, Actors, Directors, Artisans, and Technicians with government-regulated support.",
+        "State-Endorsed Cultural Calendar with annual Art Festivals, Film Festivals, Competitions, and Fellowship Programs.",
+        "Protection and Promotion of Rajasthani Dialects, Folk Arts, and Traditional Performance Practices via documentation, digital archiving, and grants.",
+        "Active Involvement of Local Youth and Artists through capacity-building initiatives and employment in creative sectors."
+      ],
+      commitment: "Our Commitment",
+      commitmentText: "As signatories of this petition, we commit to supporting this movement through our skills, platforms, time, or resources. We believe this is not merely about cinema—it is about cultural identity, economic empowerment, youth engagement, and heritage preservation.",
+      request: "We request Hon'ble Princess Diya Kumari ji, the Government of Rajasthan, and all relevant Ministries to take urgent and sustained action.",
+      slogan: "LET THE SCREEN REFLECT OUR SOIL. LET THE ART RISE FROM OUR ROOTS."
+    },
+    hindi: {
+      title: "राजस्थानी सिनेमा, कला और सांस्कृतिक ढांचे के पुनरुत्थान हेतु याचिका",
+      declaration: "समर्थन की घोषणा",
+      declarationText: "हम, इस याचिका पर हस्ताक्षर करने वाले नागरिक, कलाकार, शिक्षक, छात्र, सांस्कृतिक प्रेमी, और भारत की विविध विरासत के समर्थक, राजस्थान सरकार और संबंधित केंद्रीय मंत्रालयों (संस्कृति मंत्रालय, सूचना एवं प्रसारण मंत्रालय, पर्यटन मंत्रालय और विश्वविद्यालय अनुदान आयोग - UGC) से आग्रह करते हैं कि वे राजस्थानी सिनेमा, कला और संस्कृति के पुनरुत्थान और संस्थागत निर्माण के लिए एक व्यापक नीति ढांचा लागू करें।",
+      context: "हालांकि राजस्थान ने भारतीय सिनेमा को एक प्रमुख शूटिंग स्थल के रूप में और लोककला, संगीत, कहानी कहने की परंपरा और भाषाई विविधता के माध्यम से संस्कृति को अद्वितीय योगदान दिया है, फिर भी स्थानीय प्रतिभा, संस्थान और सांस्कृतिक ढांचे आज भी विकासहीन, असहाय और असंगठित हैं।",
+      belief: "हम मानते हैं कि यदि सही बुनियादी ढांचा, शैक्षणिक सहयोग, नीति समर्थन और प्रचार कार्यक्रम मिलें तो राजस्थान क्षेत्रीय सिनेमा और सांस्कृतिक उत्कृष्टता का राष्ट्रीय केंद्र बन सकता है।",
+      demands: "हम विशेष रूप से निम्नलिखित की मांग करते हैं:",
+      demandsList: [
+        "राजस्थान फिल्म विकास नीति की स्थापना की जाए, जिसमें स्पष्ट सब्सिडी, सिंगल विंडो क्लीयरेंस, और 60% राजस्थानी सहभागिता (कलाकार, तकनीशियन, लोकेशन, संस्कृति आदि) की अनिवार्यता हो।",
+        "राजस्थान में एक फिल्म सिटी या क्षेत्रीय मीडिया हब की स्थापना, जिसमें शूटिंग फ्लोर, पोस्ट-प्रोडक्शन यूनिट, कॉस्ट्यूम/आर्ट विभाग और कौशल केंद्र हों।",
+        "फिल्म, मीडिया और परफॉर्मिंग आर्ट्स की पढ़ाई को राजस्थान के कॉलेजों और विश्वविद्यालयों में राज्य समर्थित पाठ्यक्रमों के रूप में लागू किया जाए।",
+        "सरकारी मान्यता प्राप्त रचनात्मक संघों का गठन, जैसे लेखक, संगीतकार, अभिनेता, निर्देशक, शिल्पकार और तकनीशियन संघ।",
+        "राज्य प्रायोजित सांस्कृतिक कैलेंडर, जिसमें वार्षिक कला उत्सव, फिल्म फेस्टिवल, प्रतियोगिताएं और फैलोशिप प्रोग्राम शामिल हों।",
+        "राजस्थानी बोलियों, लोक कलाओं और पारंपरिक प्रदर्शन कलाओं के संरक्षण और संवर्धन के लिए डॉक्यूमेंटेशन, डिजिटल आर्काइविंग और अनुदान की सुविधा।",
+        "स्थानीय युवाओं और कलाकारों की सक्रिय भागीदारी, कौशल निर्माण और रचनात्मक क्षेत्रों में रोजगार के माध्यम से सुनिश्चित की जाए।"
+      ],
+      commitment: "हमारी प्रतिबद्धता",
+      commitmentText: "इस याचिका पर हस्ताक्षर करने वाले सभी लोग इस आंदोलन को अपने कौशल, मंच, समय या संसाधनों के माध्यम से समर्थन देने के लिए प्रतिबद्ध हैं। यह केवल सिनेमा का विषय नहीं है, बल्कि सांस्कृतिक पहचान, आर्थिक सशक्तिकरण, युवाओं की भागीदारी और विरासत संरक्षण का विषय है।",
+      request: "हम माननीय राजकुमारी दिया कुमारी जी, राजस्थान सरकार और सभी संबंधित मंत्रालयों से निवेदन करते हैं कि वे इस दिशा में शीघ्र और सतत कार्यवाही करें।",
+      slogan: "हर छवि में देखाय धरती री बात, आ जड़ां सूं फिरे कला री सौगात।"
+    }
+  };
+
+  // Contribution options
+  const contributionOptions = [
+    "I want to promote Rajasthani language and regional cinema through storytelling and content creation",
+    "I wish to support traditional arts, folk music, and culture festivals across Rajasthan",
+    "I support introducing film & media education in colleges and am ready to advocate or collaborate",
+    "I want to be a part of official cultural associations (Writers, Musicians, Directors, etc.)",
+    "I'm willing to volunteer at film festivals, workshops, or cultural events",
+    "I can donate funds or sponsor specific initiatives (awards, events, infrastructure)",
+    "I wish to help shape policies and legal frameworks for Rajasthan's creative industry",
+    "I want to support the training and upliftment of youth, artists, and folk performers",
+    "I'm interested in partnering or investing in Rajasthan's film and cultural infrastructure (studio, film city, etc.)"
   ];
 
   // Generate a 6-digit OTP
@@ -79,10 +149,7 @@ const SupportPage = () => {
     setGeneratedEmailOTP(otp);
     setEmailOTPSent(true);
     
-    // In a real implementation, you would send this OTP via email service
-    // For now, we'll show it in a toast for testing
     toast.success(`Email OTP sent! For testing: ${otp}`, { duration: 8000 });
-    
     console.log(`Email OTP for ${email}: ${otp}`);
   };
 
@@ -97,10 +164,7 @@ const SupportPage = () => {
     setGeneratedPhoneOTP(otp);
     setPhoneOTPSent(true);
     
-    // In a real implementation, you would send this OTP via SMS service
-    // For now, we'll show it in a toast for testing
     toast.success(`WhatsApp OTP sent! For testing: ${otp}`, { duration: 8000 });
-    
     console.log(`Phone OTP for ${phone}: ${otp}`);
   };
 
@@ -159,9 +223,12 @@ const SupportPage = () => {
         email: data.email,
         phone: data.phone,
         socialProfile: data.socialProfile || '',
+        category: selectedCategory,
         role: data.role,
         interests: data.interests || [],
         message: data.message || '',
+        hasInstitution: data.hasInstitution || 'no',
+        institutionName: data.institutionName || '',
         supportConsent: data.supportConsent,
         updatesConsent: data.updatesConsent || false,
         timestamp: new Date(),
@@ -192,7 +259,7 @@ const SupportPage = () => {
 
   if (step === 3) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-royal-50 to-desert-50 pt-24 pb-12">
+      <div className="min-h-screen bg-gradient-to-br from-amber-50 to-yellow-50 pt-24 pb-12">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
@@ -201,7 +268,7 @@ const SupportPage = () => {
           >
             <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-6" />
             <h1 className="text-3xl md:text-4xl font-royal font-bold text-gray-900 mb-4">
-              Welcome to Rasmanch!
+              Welcome to Rajasthan Screen Stage Forum!
             </h1>
             <p className="text-lg text-gray-600 mb-8">
               Thank you for joining the Rajasthani Cultural Revival. You&apos;ll receive updates 
@@ -211,7 +278,7 @@ const SupportPage = () => {
               <Button 
                 size="lg" 
                 onClick={() => window.open('/proposal.pdf', '_blank')}
-                className="w-full sm:w-auto"
+                className="w-full sm:w-auto bg-gradient-to-r from-amber-600 to-yellow-700"
               >
                 <Download className="mr-2 h-5 w-5" />
                 Download Full Proposal
@@ -226,8 +293,10 @@ const SupportPage = () => {
     );
   }
 
+  const currentContent = petitionContent[language];
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-royal-50 to-desert-50 pt-24 pb-12">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-yellow-50 pt-24 pb-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div 
@@ -245,49 +314,132 @@ const SupportPage = () => {
           </p>
         </motion.div>
 
-        {/* Impact Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-          {[
-            { icon: <Users className="h-6 w-6" />, title: "Government Bodies", desc: "Policy support & reforms" },
-            { icon: <Crown className="h-6 w-6" />, title: "Artists", desc: "Join our creative collective" },
-            { icon: <Award className="h-6 w-6" />, title: "Educators", desc: "Introduce media courses" },
-            { icon: <Film className="h-6 w-6" />, title: "Sponsors", desc: "Fund events & infrastructure" }
-          ].map((item, index) => (
+        {/* Category Selection Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          {supportCategories.map((category, index) => (
             <motion.div
-              key={index}
-              className="bg-white p-6 rounded-lg shadow-lg border border-royal-100"
+              key={category.id}
+              className={`relative overflow-hidden rounded-xl shadow-lg border-2 transition-all duration-300 cursor-pointer ${
+                selectedCategory === category.id 
+                  ? 'border-amber-500 shadow-xl scale-105' 
+                  : 'border-gray-200 hover:border-amber-300 hover:shadow-lg'
+              }`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
+              onClick={() => {
+                setSelectedCategory(category.id);
+                setValue('role', category.title); // Set the main category as role
+              }}
             >
-              <div className="text-royal-600 mb-3">{item.icon}</div>
-              <h3 className="font-semibold text-gray-900 mb-2">{item.title}</h3>
-              <p className="text-sm text-gray-600">{item.desc}</p>
+              <div className={`bg-gradient-to-br ${category.color} p-6 text-white`}>
+                <div className="mb-3">{category.icon}</div>
+                <h3 className="font-semibold text-lg mb-2">{category.title}</h3>
+                <p className="text-sm opacity-90">{category.description}</p>
+              </div>
+              {selectedCategory === category.id && (
+                <div className="absolute top-2 right-2">
+                  <CheckCircle className="h-6 w-6 text-white" />
+                </div>
+              )}
             </motion.div>
           ))}
         </div>
 
-        {/* Form */}
+        {/* Petition Statement with Language Toggle */}
         <motion.div 
-          className="bg-white rounded-xl shadow-xl border border-royal-100 overflow-hidden"
+          className="bg-white rounded-xl shadow-xl border border-amber-100 overflow-hidden mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <div className="bg-gradient-to-r from-royal-600 to-desert-600 px-8 py-6">
+          <div className="bg-gradient-to-r from-amber-600 to-yellow-600 px-8 py-6">
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-royal font-bold text-white">
+                🖋️ {currentContent.title}
+              </h2>
+              
+              {/* Language Toggle */}
+              <div className="flex items-center space-x-2 bg-white/20 rounded-full p-1">
+                <button
+                  onClick={() => setLanguage('english')}
+                  className={`px-3 py-1 rounded-full text-sm font-medium transition-all ${
+                    language === 'english' 
+                      ? 'bg-white text-amber-700' 
+                      : 'text-white hover:bg-white/20'
+                  }`}
+                >
+                  <Globe className="h-4 w-4 inline mr-1" />
+                  English
+                </button>
+                <button
+                  onClick={() => setLanguage('hindi')}
+                  className={`px-3 py-1 rounded-full text-sm font-medium transition-all font-hindi ${
+                    language === 'hindi' 
+                      ? 'bg-white text-amber-700' 
+                      : 'text-white hover:bg-white/20'
+                  }`}
+                >
+                  हिंदी
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-8">
+            <div className={`prose max-w-none text-gray-700 ${language === 'hindi' ? 'font-hindi' : ''}`}>
+              <h3 className="text-xl font-semibold mb-4 text-amber-800">📜 {currentContent.declaration}</h3>
+              <p className="mb-6">{currentContent.declarationText}</p>
+              
+              <p className="mb-6">{currentContent.context}</p>
+              
+              <p className="mb-6">{currentContent.belief}</p>
+
+              <h3 className="text-xl font-semibold mb-4 text-amber-800">📌 {currentContent.demands}</h3>
+              <ul className="space-y-3 mb-6">
+                {currentContent.demandsList.map((demand, index) => (
+                  <li key={index} className="flex items-start">
+                    <span className="text-amber-600 mr-2 mt-1">•</span>
+                    <span>{demand}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <h3 className="text-xl font-semibold mb-4 text-amber-800">✊ {currentContent.commitment}</h3>
+              <p className="mb-6">{currentContent.commitmentText}</p>
+              
+              <p className="mb-6">{currentContent.request}</p>
+
+              <div className="bg-amber-50 p-4 rounded-lg">
+                <p className="text-amber-800 font-bold text-center text-lg">
+                  {currentContent.slogan}
+                </p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Main Form */}
+        <motion.div 
+          className="bg-white rounded-xl shadow-xl border border-amber-100 overflow-hidden"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
+          <div className="bg-gradient-to-r from-amber-600 to-yellow-600 px-8 py-6">
             <h2 className="text-2xl font-royal font-bold text-white">
               Join the Movement
             </h2>
             <p className="text-white/90 mt-2">
-              Fill out the form below to become part of this historic initiative
+              Sign the petition and become part of this historic initiative
             </p>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="p-8 space-y-6">
             {/* Verification Section */}
-            <div className="bg-royal-50 p-6 rounded-lg">
+            <div className="bg-amber-50 p-6 rounded-lg">
               <h3 className="font-semibold text-gray-900 mb-4 flex items-center">
-                <AlertCircle className="h-5 w-5 mr-2 text-royal-600" />
+                <AlertCircle className="h-5 w-5 mr-2 text-amber-600" />
                 Verification Required
               </h3>
               
@@ -306,9 +458,10 @@ const SupportPage = () => {
                     />
                     <Button 
                       type="button"
-                      onClick={() => sendEmailOTP(watch('email'))}
+                      onClick={() => sendEmailOTP(watch('email') || '')}
                       disabled={emailVerified || !watch('email')}
                       variant={emailVerified ? 'ghost' : 'default'}
+                      className="bg-amber-600 hover:bg-amber-700"
                     >
                       {emailVerified ? (
                         <CheckCircle className="h-4 w-4" />
@@ -337,6 +490,7 @@ const SupportPage = () => {
                         type="button"
                         onClick={verifyEmailOTP}
                         disabled={emailOTP.length !== 6}
+                        className="bg-green-600 hover:bg-green-700"
                       >
                         Verify
                       </Button>
@@ -370,9 +524,10 @@ const SupportPage = () => {
                     />
                     <Button 
                       type="button"
-                      onClick={() => sendPhoneOTP(watch('phone'))}
+                      onClick={() => sendPhoneOTP(watch('phone') || '')}
                       disabled={phoneVerified || !watch('phone')}
                       variant={phoneVerified ? 'ghost' : 'default'}
+                      className="bg-amber-600 hover:bg-amber-700"
                     >
                       {phoneVerified ? (
                         <CheckCircle className="h-4 w-4" />
@@ -401,6 +556,7 @@ const SupportPage = () => {
                         type="button"
                         onClick={verifyPhoneOTP}
                         disabled={phoneOTP.length !== 6}
+                        className="bg-green-600 hover:bg-green-700"
                       >
                         Verify
                       </Button>
@@ -483,40 +639,70 @@ const SupportPage = () => {
               />
             </div>
 
-            {/* Role Selection */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Select Your Role / Category *
-              </label>
-              <select
-                {...register('role', { required: 'Please select your role' })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-royal-400"
-              >
-                <option value="">Choose your role</option>
-                {roles.map((role) => (
-                  <option key={role} value={role}>{role}</option>
-                ))}
-              </select>
-              {errors.role && (
-                <p className="text-red-500 text-sm mt-1">{errors.role.message}</p>
-              )}
-            </div>
+            {/* Department/Specific Role based on selection */}
+            {selectedCategory === 'government' && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Department *
+                </label>
+                <Input
+                  {...register('institutionName', { required: 'Department is required' })}
+                  placeholder="Enter your department/ministry"
+                />
+                {errors.institutionName && (
+                  <p className="text-red-500 text-sm mt-1">{errors.institutionName.message}</p>
+                )}
+              </div>
+            )}
 
-            {/* Interests */}
+            {selectedCategory && selectedCategory !== 'government' && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Specific Role *
+                </label>
+                <select
+                  {...register('institutionName', { required: 'Please select your specific role' })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-400"
+                >
+                  <option value="">Choose your specific role</option>
+                  {selectedCategory === 'artists' && 
+                    ['Actor', 'Technician', 'Singer', 'Performer', 'Stylist', 'Designer', 'Writer', 'Director', 'Editor', 'Content Creator', 'Producer', 'Distributor', 'Musician'].map((role) => (
+                      <option key={role} value={role}>{role}</option>
+                    ))
+                  }
+                  {selectedCategory === 'academic' && 
+                    ['Student', 'Teacher', 'School', 'College', 'Institute', 'Academy', 'University', 'Professional'].map((role) => (
+                      <option key={role} value={role}>{role}</option>
+                    ))
+                  }
+                  {selectedCategory === 'media' && 
+                    ['Newspaper Media', 'TV Media', 'Digital Media', 'Journalist', 'PR Consultant', 'Product Sponsor', 'Brand Sponsor', 'Advertising Agency', 'Creative Agency', 'PR Agency'].map((role) => (
+                      <option key={role} value={role}>{role}</option>
+                    ))
+                  }
+                </select>
+                {errors.institutionName && (
+                  <p className="text-red-500 text-sm mt-1">{errors.institutionName.message}</p>
+                )}
+              </div>
+            )}
+
+            {/* Contribution Options */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Select Your Areas of Interest
+                How Would You Like to Contribute to Rajasthan&apos;s Cultural Revival? *
               </label>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {interests.map((interest) => (
-                  <label key={interest} className="flex items-center space-x-2">
+              <p className="text-sm text-gray-600 mb-4">Choose one or more ways you&apos;d like to support or participate:</p>
+              <div className="space-y-3 max-h-64 overflow-y-auto">
+                {contributionOptions.map((option, index) => (
+                  <label key={index} className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg hover:bg-amber-50 transition-colors">
                     <input
                       type="checkbox"
                       {...register('interests')}
-                      value={interest}
-                      className="rounded border-gray-300 text-royal-600 focus:ring-royal-400"
+                      value={option}
+                      className="mt-1 rounded border-gray-300 text-amber-600 focus:ring-amber-400"
                     />
-                    <span className="text-sm text-gray-700">{interest}</span>
+                    <span className="text-sm text-gray-700">{option}</span>
                   </label>
                 ))}
               </div>
@@ -541,12 +727,12 @@ const SupportPage = () => {
                 <input
                   type="checkbox"
                   {...register('supportConsent', { required: 'Please confirm your support' })}
-                  className="mt-1 rounded border-gray-300 text-royal-600 focus:ring-royal-400"
+                  className="mt-1 rounded border-gray-300 text-amber-600 focus:ring-amber-400"
                 />
                 <span className="text-sm text-gray-700">
                   I support the revival of Rajasthani Cinema, Arts, and Cultural Infrastructure 
                   and request the concerned government departments to take action as per the 
-                  proposal outlined on this platform.
+                  proposal outlined on this platform. <strong>I hereby sign this petition.</strong>
                 </span>
               </label>
 
@@ -554,7 +740,7 @@ const SupportPage = () => {
                 <input
                   type="checkbox"
                   {...register('updatesConsent')}
-                  className="mt-1 rounded border-gray-300 text-royal-600 focus:ring-royal-400"
+                  className="mt-1 rounded border-gray-300 text-amber-600 focus:ring-amber-400"
                 />
                 <span className="text-sm text-gray-700">
                   I consent to receive updates, opportunities, and petitions related to this initiative.
@@ -570,21 +756,27 @@ const SupportPage = () => {
             <Button
               type="submit"
               size="lg"
-              className="w-full"
-              disabled={loading || !emailVerified || !phoneVerified || !verifyCaptcha()}
+              className="w-full bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-700 hover:to-yellow-700"
+              disabled={loading || !emailVerified || !phoneVerified || !verifyCaptcha() || !selectedCategory}
             >
               {loading ? (
                 <div className="flex items-center">
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                  Joining Movement...
+                  Signing Petition & Joining Movement...
                 </div>
               ) : (
                 <>
                   <Crown className="mr-2 h-5 w-5" />
-                  Join the Movement
+                  Sign Petition & Join Movement
                 </>
               )}
             </Button>
+
+            {!selectedCategory && (
+              <p className="text-amber-600 text-sm text-center">
+                Please select a category above to continue
+              </p>
+            )}
           </form>
         </motion.div>
       </div>

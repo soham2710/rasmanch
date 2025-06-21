@@ -1,46 +1,48 @@
 @import "tailwindcss";
 
 @theme {
-  /* Royal Purple - Deep, majestic, traditional royalty */
-  --color-royal-50: #faf7ff;
-  --color-royal-100: #f3ebff;
-  --color-royal-200: #e9d8ff;
-  --color-royal-300: #d8b6ff;
-  --color-royal-400: #c084fc;
-  --color-royal-500: #a855f7;
-  --color-royal-600: #8b5fbf;
-  --color-royal-700: #7c3aed;
-  --color-royal-800: #6b21a8;
-  --color-royal-900: #581c87;
-  --color-royal-950: #3b0764;
+  /* Rajasthan-inspired color palette from the image */
+  
+  /* Deep Black - Primary dark tone */
+  --color-charcoal-50: #f7f7f7;
+  --color-charcoal-100: #e3e3e3;
+  --color-charcoal-200: #c8c8c8;
+  --color-charcoal-300: #a4a4a4;
+  --color-charcoal-400: #818181;
+  --color-charcoal-500: #666666;
+  --color-charcoal-600: #515151;
+  --color-charcoal-700: #434343;
+  --color-charcoal-800: #383838;
+  --color-charcoal-900: #000000;
+  --color-charcoal-950: #000000;
 
-  /* Imperial Gold - Luxurious, warm, regal */
-  --color-gold-50: #fffbeb;
-  --color-gold-100: #fef3c7;
-  --color-gold-200: #fde68a;
-  --color-gold-300: #fcd34d;
-  --color-gold-400: #fbbf24;
-  --color-gold-500: #f59e0b;
-  --color-gold-600: #d97706;
-  --color-gold-700: #b45309;
-  --color-gold-800: #92400e;
-  --color-gold-900: #78350f;
-  --color-gold-950: #451a03;
+  /* Golden Amber - Royal and regal */
+  --color-amber-50: #fffbeb;
+  --color-amber-100: #fef3c7;
+  --color-amber-200: #fde68a;
+  --color-amber-300: #fcd34d;
+  --color-amber-400: #fbbf24;
+  --color-amber-500: #f59e0b;
+  --color-amber-600: #d97706;
+  --color-amber-700: #b45309;
+  --color-amber-800: #92400e;
+  --color-amber-900: #78350f;
+  --color-amber-950: #451a03;
 
-  /* Burgundy - Rich, sophisticated, royal wine */
-  --color-burgundy-50: #fef2f2;
-  --color-burgundy-100: #fee2e2;
-  --color-burgundy-200: #fecaca;
-  --color-burgundy-300: #fca5a5;
-  --color-burgundy-400: #f87171;
-  --color-burgundy-500: #ef4444;
-  --color-burgundy-600: #dc2626;
-  --color-burgundy-700: #b91c1c;
-  --color-burgundy-800: #991b1b;
-  --color-burgundy-900: #7f1d1d;
-  --color-burgundy-950: #450a0a;
+  /* Deep Red - Rich and royal */
+  --color-crimson-50: #fef2f2;
+  --color-crimson-100: #fee2e2;
+  --color-crimson-200: #fecaca;
+  --color-crimson-300: #fca5a5;
+  --color-crimson-400: #f87171;
+  --color-crimson-500: #ef4444;
+  --color-crimson-600: #dc2626;
+  --color-crimson-700: #b91c1c;
+  --color-crimson-800: #991b1b;
+  --color-crimson-900: #7f1d1d;
+  --color-crimson-950: #450a0a;
 
-  /* Emerald - Royal green, precious, noble */
+  /* Forest Green - Cultural and traditional */
   --color-emerald-50: #ecfdf5;
   --color-emerald-100: #d1fae5;
   --color-emerald-200: #a7f3d0;
@@ -53,33 +55,33 @@
   --color-emerald-900: #064e3b;
   --color-emerald-950: #022c22;
 
-  /* Sapphire - Deep blue, royal, timeless */
-  --color-sapphire-50: #eff6ff;
-  --color-sapphire-100: #dbeafe;
-  --color-sapphire-200: #bfdbfe;
-  --color-sapphire-300: #93c5fd;
-  --color-sapphire-400: #60a5fa;
-  --color-sapphire-500: #3b82f6;
-  --color-sapphire-600: #2563eb;
-  --color-sapphire-700: #1d4ed8;
-  --color-sapphire-800: #1e40af;
-  --color-sapphire-900: #1e3a8a;
-  --color-sapphire-950: #172554;
+  /* Royal Purple - Maintaining some royalty */
+  --color-royal-50: #faf7ff;
+  --color-royal-100: #f3ebff;
+  --color-royal-200: #e9d8ff;
+  --color-royal-300: #d8b6ff;
+  --color-royal-400: #c084fc;
+  --color-royal-500: #a855f7;
+  --color-royal-600: #8b5fbf;
+  --color-royal-700: #7c3aed;
+  --color-royal-800: #6b21a8;
+  --color-royal-900: #581c87;
+  --color-royal-950: #3b0764;
 
-  /* Copper - Warm metallic, traditional, earthy royal */
-  --color-copper-50: #fef7f0;
-  --color-copper-100: #feecdc;
-  --color-copper-200: #fcd9bd;
-  --color-copper-300: #fdba8c;
-  --color-copper-400: #ff8a4c;
-  --color-copper-500: #ff5a1f;
-  --color-copper-600: #ea580c;
-  --color-copper-700: #c2410c;
-  --color-copper-800: #9a3412;
-  --color-copper-900: #7c2d12;
-  --color-copper-950: #431407;
+  /* Warm Yellow - Complementary to amber */
+  --color-yellow-50: #fefce8;
+  --color-yellow-100: #fef9c3;
+  --color-yellow-200: #fef08a;
+  --color-yellow-300: #fde047;
+  --color-yellow-400: #facc15;
+  --color-yellow-500: #eab308;
+  --color-yellow-600: #ca8a04;
+  --color-yellow-700: #a16207;
+  --color-yellow-800: #854d0e;
+  --color-yellow-900: #713f12;
+  --color-yellow-950: #422006;
 
-  /* Desert Sand - Keep original for cultural connection */
+  /* Desert Sand - Original for cultural connection */
   --color-desert-50: #fef7ee;
   --color-desert-100: #feecd7;
   --color-desert-200: #fcd5ae;
@@ -96,10 +98,11 @@
   --font-family-hindi: var(--font-hindi), sans-serif;
   --font-family-sans: var(--font-sans), sans-serif;
 
-  /* Custom shadows for royal feel */
-  --shadow-royal: 0 25px 50px -12px rgba(139, 95, 191, 0.25);
-  --shadow-gold: 0 25px 50px -12px rgba(245, 158, 11, 0.25);
+  /* Enhanced shadows with new colors */
+  --shadow-amber: 0 25px 50px -12px rgba(217, 119, 6, 0.25);
+  --shadow-crimson: 0 25px 50px -12px rgba(185, 28, 28, 0.25);
   --shadow-emerald: 0 25px 50px -12px rgba(16, 185, 129, 0.25);
+  --shadow-charcoal: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
 }
 
 html {
@@ -107,7 +110,7 @@ html {
 }
 
 body {
-  @apply bg-gradient-to-br from-royal-50 via-white to-gold-50 text-gray-900;
+  @apply bg-gradient-to-br from-amber-50 via-white to-yellow-50 text-gray-900;
 }
 
 .font-royal {
@@ -122,24 +125,24 @@ body {
   font-family: 'Cinzel', serif;
 }
 
-/* Custom scrollbar with royal theme */
+/* Custom scrollbar with new theme */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-royal-50;
+  @apply bg-amber-50;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-gradient-to-b from-royal-400 to-royal-600 rounded-full;
+  @apply bg-gradient-to-b from-amber-400 to-amber-600 rounded-full;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-gradient-to-b from-royal-500 to-royal-700;
+  @apply bg-gradient-to-b from-amber-500 to-amber-700;
 }
 
-/* Royal animations */
+/* Enhanced animations */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -169,6 +172,17 @@ body {
   }
 }
 
+@keyframes slideInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .animate-fade-in-up {
   animation: fadeInUp 1s ease-out forwards;
 }
@@ -183,86 +197,117 @@ body {
   animation: float 3s ease-in-out infinite;
 }
 
-/* Royal gradient utilities */
+.animate-in {
+  animation: slideInFromTop 0.3s ease-out forwards;
+}
+
+.slide-in-from-top-2 {
+  animation: slideInFromTop 0.3s ease-out forwards;
+}
+
+/* New gradient utilities with updated colors */
+.gradient-rajasthan {
+  @apply bg-gradient-to-r from-charcoal-900 via-amber-700 to-crimson-700;
+}
+
+.gradient-golden {
+  @apply bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600;
+}
+
 .gradient-royal {
-  @apply bg-gradient-to-r from-royal-600 via-royal-700 to-burgundy-600;
+  @apply bg-gradient-to-r from-royal-600 via-royal-700 to-crimson-600;
 }
 
-.gradient-gold {
-  @apply bg-gradient-to-r from-gold-500 via-gold-600 to-copper-600;
+.gradient-text-rajasthan {
+  @apply bg-gradient-to-r from-charcoal-900 via-amber-700 to-crimson-700 bg-clip-text text-transparent;
 }
 
-.gradient-text-royal {
-  @apply bg-gradient-to-r from-royal-600 via-royal-700 to-burgundy-600 bg-clip-text text-transparent;
+.gradient-text-golden {
+  @apply bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 bg-clip-text text-transparent;
 }
 
-.gradient-text-gold {
-  @apply bg-gradient-to-r from-gold-500 via-gold-600 to-copper-600 bg-clip-text text-transparent;
-}
-
-/* Hero section enhanced styles */
+/* Enhanced hero section styles */
 .hero-bg {
   background: linear-gradient(135deg, 
-    rgba(139, 95, 191, 0.9) 0%, 
-    rgba(124, 58, 237, 0.8) 25%,
+    rgba(0, 0, 0, 0.9) 0%, 
+    rgba(217, 119, 6, 0.8) 25%,
     rgba(185, 28, 28, 0.7) 75%,
-    rgba(245, 158, 11, 0.6) 100%),
-    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="royal-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100%" height="100%" fill="url(%23royal-pattern)"/></svg>');
+    rgba(16, 185, 129, 0.6) 100%);
 }
 
 .hero-pattern {
   background-image: 
-    radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 2px, transparent 2px),
-    radial-gradient(circle at 80% 50%, rgba(245, 158, 11, 0.1) 2px, transparent 2px),
-    radial-gradient(circle at 40% 80%, rgba(139, 95, 191, 0.1) 2px, transparent 2px);
+    radial-gradient(circle at 20% 50%, rgba(251, 191, 36, 0.1) 2px, transparent 2px),
+    radial-gradient(circle at 80% 50%, rgba(217, 119, 6, 0.1) 2px, transparent 2px),
+    radial-gradient(circle at 40% 80%, rgba(16, 185, 129, 0.1) 2px, transparent 2px);
   background-size: 100px 100px, 150px 150px, 200px 200px;
 }
 
-/* Glass morphism effects */
+/* Glass morphism effects with new colors */
 .glass {
   @apply bg-white/10 backdrop-blur-lg border border-white/20;
 }
 
-.glass-royal {
-  @apply bg-royal-500/10 backdrop-blur-lg border border-royal-300/20;
+.glass-amber {
+  @apply bg-amber-500/10 backdrop-blur-lg border border-amber-300/20;
 }
 
-.glass-gold {
-  @apply bg-gold-500/10 backdrop-blur-lg border border-gold-300/20;
+.glass-charcoal {
+  @apply bg-charcoal-500/10 backdrop-blur-lg border border-charcoal-300/20;
 }
 
-/* Section transitions enhanced */
-.section-enter {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: all 0.8s ease-out;
-}
-
-.section-enter-active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Royal card styles */
-.royal-card {
-  @apply bg-gradient-to-br from-white via-royal-50/50 to-gold-50/30 
-         border border-royal-200/50 shadow-xl shadow-royal-200/20
-         hover:shadow-2xl hover:shadow-royal-300/30 
+/* Enhanced card styles */
+.rajasthan-card {
+  @apply bg-gradient-to-br from-white via-amber-50/50 to-yellow-50/30 
+         border border-amber-200/50 shadow-xl shadow-amber-200/20
+         hover:shadow-2xl hover:shadow-amber-300/30 
          transition-all duration-300 hover:scale-105;
 }
 
-.royal-button {
-  @apply bg-gradient-to-r from-royal-600 to-royal-700 
-         hover:from-royal-700 hover:to-royal-800
-         text-white font-medium shadow-lg shadow-royal-300/30
-         hover:shadow-xl hover:shadow-royal-400/40
+.rajasthan-button {
+  @apply bg-gradient-to-r from-amber-600 to-yellow-600 
+         hover:from-amber-700 hover:to-yellow-700
+         text-black font-medium shadow-lg shadow-amber-300/30
+         hover:shadow-xl hover:shadow-amber-400/40
          transition-all duration-300 transform hover:scale-105;
 }
 
-.gold-button {
-  @apply bg-gradient-to-r from-gold-500 to-gold-600 
-         hover:from-gold-600 hover:to-gold-700
-         text-white font-medium shadow-lg shadow-gold-300/30
-         hover:shadow-xl hover:shadow-gold-400/40
+.crimson-button {
+  @apply bg-gradient-to-r from-crimson-600 to-crimson-700 
+         hover:from-crimson-700 hover:to-crimson-800
+         text-white font-medium shadow-lg shadow-crimson-300/30
+         hover:shadow-xl hover:shadow-crimson-400/40
          transition-all duration-300 transform hover:scale-105;
+}
+
+.charcoal-button {
+  @apply bg-gradient-to-r from-charcoal-800 to-charcoal-900 
+         hover:from-charcoal-900 hover:to-charcoal-900
+         text-white font-medium shadow-lg shadow-charcoal-300/30
+         hover:shadow-xl hover:shadow-charcoal-400/40
+         transition-all duration-300 transform hover:scale-105;
+}
+
+/* Specific Rajasthani cultural elements */
+.rajasthani-crown {
+  filter: drop-shadow(0 4px 8px rgba(217, 119, 6, 0.3));
+}
+
+.cultural-gradient {
+  background: linear-gradient(45deg, 
+    #000000 0%,
+    #d97706 25%, 
+    #b91c1c 50%,
+    #059669 75%,
+    #000000 100%);
+}
+
+/* Enhanced responsiveness */
+@media (max-width: 768px) {
+  .hero-bg {
+    background: linear-gradient(180deg, 
+      rgba(0, 0, 0, 0.9) 0%, 
+      rgba(217, 119, 6, 0.8) 50%,
+      rgba(185, 28, 28, 0.7) 100%);
+  }
 }

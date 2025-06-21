@@ -1,4 +1,4 @@
-// types/index.ts
+// types/index.ts - Updated with additional form fields
 export interface User {
   uid: string;
   email: string | null;
@@ -39,6 +39,8 @@ export interface FormData {
   message?: string;
   supportConsent: boolean;
   updatesConsent: boolean;
+  hasInstitution?: string;
+  institutionName?: string;
 }
 
 // Home page stats interface

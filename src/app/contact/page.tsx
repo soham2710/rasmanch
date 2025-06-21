@@ -1,4 +1,4 @@
-// app/contact/page.tsx - Fixed Contact Page with Firebase Type Errors Resolved
+// app/contact/page.tsx - Updated Contact Page with New Branding
 'use client';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -91,7 +91,7 @@ const ContactPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-royal-50 to-desert-50 pt-24 pb-12">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-yellow-50 pt-24 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div 
@@ -122,15 +122,15 @@ const ContactPage = () => {
             
             <div className="space-y-6 mb-8">
               <div className="flex items-center">
-                <Mail className="h-6 w-6 text-royal-600 mr-4" />
+                <Mail className="h-6 w-6 text-amber-600 mr-4" />
                 <div>
                   <div className="font-semibold text-gray-900">Email</div>
-                  <div className="text-gray-600">info@rasmanch.org</div>
+                  <div className="text-gray-600">rajcinemarevival@gmail.com</div>
                 </div>
               </div>
               
               <div className="flex items-center">
-                <Phone className="h-6 w-6 text-royal-600 mr-4" />
+                <Phone className="h-6 w-6 text-amber-600 mr-4" />
                 <div>
                   <div className="font-semibold text-gray-900">Phone</div>
                   <div className="text-gray-600">+91 XXXXX XXXXX</div>
@@ -138,7 +138,7 @@ const ContactPage = () => {
               </div>
               
               <div className="flex items-center">
-                <MapPin className="h-6 w-6 text-royal-600 mr-4" />
+                <MapPin className="h-6 w-6 text-amber-600 mr-4" />
                 <div>
                   <div className="font-semibold text-gray-900">Address</div>
                   <div className="text-gray-600">Jaipur, Rajasthan, India</div>
@@ -146,7 +146,7 @@ const ContactPage = () => {
               </div>
               
               <div className="flex items-center">
-                <Clock className="h-6 w-6 text-royal-600 mr-4" />
+                <Clock className="h-6 w-6 text-amber-600 mr-4" />
                 <div>
                   <div className="font-semibold text-gray-900">Response Time</div>
                   <div className="text-gray-600">Within 24 hours</div>
@@ -154,12 +154,12 @@ const ContactPage = () => {
               </div>
             </div>
 
-            <div className="bg-royal-100 p-6 rounded-lg">
-              <h3 className="font-semibold text-royal-800 mb-3 flex items-center">
+            <div className="bg-amber-100 p-6 rounded-lg">
+              <h3 className="font-semibold text-amber-800 mb-3 flex items-center">
                 <Users className="h-5 w-5 mr-2" />
                 For Government Officials
               </h3>
-              <p className="text-royal-700 text-sm">
+              <p className="text-amber-700 text-sm">
                 Special consultation available for policy makers and government 
                 representatives. Contact us directly for priority scheduling.
               </p>
@@ -172,7 +172,7 @@ const ContactPage = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="bg-white p-8 rounded-xl shadow-lg border border-royal-100">
+            <div className="bg-white p-8 rounded-xl shadow-lg border border-amber-100">
               <h3 className="text-2xl font-royal font-bold text-gray-900 mb-6">
                 Send us a Message
               </h3>
@@ -226,7 +226,7 @@ const ContactPage = () => {
                   </label>
                   <select
                     {...register('subject', { required: 'Please select a subject' })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-royal-400"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-400"
                   >
                     <option value="">Choose a subject</option>
                     <option value="general">General Inquiry</option>
@@ -260,7 +260,7 @@ const ContactPage = () => {
                   <input
                     type="checkbox"
                     {...register('newsletter')}
-                    className="mt-1 rounded border-gray-300 text-royal-600 focus:ring-royal-400"
+                    className="mt-1 rounded border-gray-300 text-amber-600 focus:ring-amber-400"
                   />
                   <label className="ml-2 text-sm text-gray-700">
                     Subscribe to our newsletter for updates on events and initiatives
@@ -270,7 +270,7 @@ const ContactPage = () => {
                 <Button
                   type="submit"
                   size="lg"
-                  className="w-full"
+                  className="w-full bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-700 hover:to-yellow-700"
                   disabled={loading}
                 >
                   {loading ? (
@@ -303,7 +303,7 @@ const ContactPage = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {faqs.map((faq, index) => (
-              <div key={index} className="bg-white p-6 rounded-lg shadow border">
+              <div key={index} className="bg-white p-6 rounded-lg shadow border border-amber-100 hover:shadow-lg transition-shadow">
                 <h3 className="font-semibold text-gray-900 mb-3">{faq.question}</h3>
                 <p className="text-gray-600">{faq.answer}</p>
               </div>

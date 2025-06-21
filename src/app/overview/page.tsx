@@ -1,4 +1,4 @@
-// app/overview/page.tsx - Combined Problem, Vision & Showcase Page
+// app/overview/page.tsx - Updated Overview Page with New Branding
 'use client';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
@@ -215,12 +215,12 @@ const OverviewPage = () => {
             {problems.map((problem, index) => (
               <motion.div
                 key={index}
-                className="bg-gray-50 p-8 rounded-xl hover:shadow-lg transition-all duration-300"
+                className="bg-gray-50 p-8 rounded-xl hover:shadow-lg transition-all duration-300 hover:bg-gradient-to-br hover:from-amber-50 hover:to-yellow-50"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <div className="text-royal-600 mb-4">{problem.icon}</div>
+                <div className="text-amber-600 mb-4">{problem.icon}</div>
                 <h3 className="text-xl font-semibold mb-3">{problem.title}</h3>
                 <p className="text-gray-600 mb-4">{problem.description}</p>
                 <div className="bg-red-50 p-3 rounded-lg mb-3">
@@ -259,7 +259,7 @@ const OverviewPage = () => {
                 onClick={() => setActiveShowcaseCategory(category.id)}
                 className={`flex items-center px-4 py-2 rounded-full transition-all text-sm ${
                   activeShowcaseCategory === category.id
-                    ? 'bg-royal-600 text-white'
+                    ? 'bg-amber-600 text-white'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
@@ -279,12 +279,12 @@ const OverviewPage = () => {
           >
             {showcaseData[activeShowcaseCategory].map((item, index) => (
               <div key={index} className="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow">
-                <div className="aspect-video bg-gradient-to-br from-royal-400 to-desert-400 flex items-center justify-center">
+                <div className="aspect-video bg-gradient-to-br from-amber-400 to-yellow-500 flex items-center justify-center">
                   <Play className="h-8 w-8 text-white" />
                 </div>
                 <div className="p-4">
                   <h3 className="font-semibold text-gray-900 mb-1">{item.title}</h3>
-                  <div className="text-royal-600 text-sm font-medium mb-2">
+                  <div className="text-amber-600 text-sm font-medium mb-2">
                     {item.year || item.region || `${item.count} Items`}
                   </div>
                   <p className="text-gray-600 text-sm">{item.description}</p>
@@ -309,7 +309,11 @@ const OverviewPage = () => {
               A comprehensive plan to rebuild Rajasthan&apos;s cultural and cinematic 
               identity from the ground up.
             </p>
-            <Button size="lg" onClick={() => window.open('/proposal.pdf', '_blank')}>
+            <Button 
+              size="lg" 
+              onClick={() => window.open('/proposal.pdf', '_blank')}
+              className="bg-gradient-to-r from-amber-600 to-yellow-700 hover:from-amber-700 hover:to-yellow-800"
+            >
               <Download className="mr-2 h-5 w-5" />
               Download Full Proposal
             </Button>
@@ -317,7 +321,7 @@ const OverviewPage = () => {
 
           {/* Roadmap Timeline */}
           <div className="relative">
-            <div className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 h-full w-1 bg-royal-200"></div>
+            <div className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 h-full w-1 bg-amber-200"></div>
             
             {roadmap.map((phase, index) => (
               <motion.div
@@ -330,14 +334,14 @@ const OverviewPage = () => {
                 transition={{ duration: 0.8 }}
               >
                 {/* Timeline dot */}
-                <div className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 w-8 h-8 bg-royal-600 rounded-full border-4 border-white shadow-lg z-10 flex items-center justify-center">
+                <div className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 w-8 h-8 bg-amber-600 rounded-full border-4 border-white shadow-lg z-10 flex items-center justify-center">
                   <Calendar className="h-4 w-4 text-white" />
                 </div>
                 
                 {/* Content */}
                 <div className={`ml-16 md:ml-0 md:w-5/12 ${index % 2 === 0 ? 'md:mr-auto' : 'md:ml-auto'}`}>
-                  <div className="bg-white p-6 rounded-xl shadow-lg border border-royal-100">
-                    <div className="text-2xl font-bold text-royal-600 mb-2">{phase.year}</div>
+                  <div className="bg-white p-6 rounded-xl shadow-lg border border-amber-100">
+                    <div className="text-2xl font-bold text-amber-600 mb-2">{phase.year}</div>
                     <h3 className="text-xl font-royal font-bold text-gray-900 mb-4">{phase.title}</h3>
                     <ul className="space-y-2">
                       {phase.items.map((item, itemIndex) => (
@@ -356,7 +360,7 @@ const OverviewPage = () => {
 
         {/* Call to Action */}
         <motion.section 
-          className="bg-gradient-to-r from-royal-600 to-desert-600 rounded-2xl p-12 text-center text-white"
+          className="bg-gradient-to-br from-charcoal-900 via-amber-800/20 to-crimson-800/20 rounded-2xl p-12 text-center text-white"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -369,11 +373,18 @@ const OverviewPage = () => {
             every step requires your support and participation.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-royal-600 hover:bg-gray-100">
+            <Button 
+              size="lg" 
+              className="bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-black"
+            >
               <Users className="mr-2 h-5 w-5" />
               Join the Movement
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="border-white text-white hover:bg-white/10"
+            >
               Learn More
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
