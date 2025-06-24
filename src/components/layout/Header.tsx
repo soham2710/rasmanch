@@ -1,7 +1,8 @@
-// components/Layout/Header.tsx - Improved Header with Clean Design
+// components/Layout/Header.tsx - Fixed Header with Proper Logo Display
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
 import { Menu, X, Crown, User, ChevronDown, LogOut, Shield, Sparkles, Star } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
@@ -58,18 +59,24 @@ const Header = () => {
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
-          {/* Enhanced Logo */}
+          {/* Enhanced Logo with Actual Logo Image */}
           <Link href="/" className="flex items-center space-x-3 group">
             <div className="relative">
-              <div className={`absolute inset-0 rounded-full blur-lg opacity-40 transition-all duration-500 ${
-                scrolled ? 'bg-amber-400/30' : 'bg-amber-400/50'
-              } group-hover:opacity-60`}></div>
-              <div className={`relative p-2.5 rounded-full transition-all duration-500 ${
+              {/* Logo container with actual image */}
+              <div className={`relative p-2 rounded-full transition-all duration-500 ${
                 scrolled ? 'bg-white shadow-lg' : 'bg-white/15 backdrop-blur-sm border border-white/20'
               } group-hover:scale-110`}>
-                <Crown className={`h-7 w-7 transition-all duration-500 ${
-                  scrolled ? 'text-amber-700' : 'text-amber-300'
-                }`} />
+                {/* Actual Logo Image */}
+                <div className="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center">
+                  <Image
+                    src="/RACC_Logo.png"
+                    alt="RACC Forum Logo"
+                    width={32}
+                    height={32}
+                    className="w-full h-full object-contain"
+                    priority
+                  />
+                </div>
               </div>
               <Sparkles className={`absolute -top-1 -right-1 h-3 w-3 transition-all duration-500 ${
                 scrolled ? 'text-amber-500' : 'text-amber-200'
@@ -82,12 +89,12 @@ const Header = () => {
               <span className={`font-royal font-bold text-xl tracking-wide transition-all duration-500 ${
                 scrolled ? 'text-gray-900' : 'text-white'
               } group-hover:text-amber-700`}>
-                Rajasthan Screen Stage Forum
+                RACC Forum
               </span>
               <span className={`text-xs font-medium transition-all duration-500 ${
                 scrolled ? 'text-amber-600' : 'text-amber-200'
               } -mt-0.5 font-hindi`}>
-                राजस्थान स्क्रीन स्टेज फोरम
+                राजस्थान कला, संस्कृति और सिनेमा मंच
               </span>
             </div>
           </Link>
@@ -145,14 +152,14 @@ const Header = () => {
                 {/* User Dropdown */}
                 {userMenuOpen && (
                   <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-amber-100 overflow-hidden z-50">
-                    <div className="p-4 bg-gradient-to-r from-amber-600 to-yellow-600 text-white">
+                    <div className="p-4 bg-gradient-to-r from-amber-600 to-yellow-600 text-black">
                       <div className="flex items-center space-x-3">
                         <div className="p-2 bg-white/20 rounded-full">
                           <User className="h-5 w-5" />
                         </div>
                         <div>
                           <p className="font-semibold">{user.email?.split('@')[0]}</p>
-                          <p className="text-sm text-white/80 truncate">{user.email}</p>
+                          <p className="text-sm text-black/70 truncate">{user.email}</p>
                         </div>
                       </div>
                     </div>
@@ -232,7 +239,7 @@ const Header = () => {
                     href={item.href}
                     className={`block px-4 py-3 text-base font-medium rounded-xl transition-all duration-300 ${
                       pathname === item.href
-                        ? 'text-white bg-gradient-to-r from-amber-600 to-yellow-600'
+                        ? 'text-black bg-gradient-to-r from-amber-600 to-yellow-600'
                         : 'text-gray-700 hover:bg-amber-50'
                     }`}
                     onClick={() => setIsOpen(false)}

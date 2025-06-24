@@ -1,7 +1,8 @@
-// app/overview/page.tsx - Updated Overview Page with New Branding
+// app/overview/page.tsx - Enhanced Overview Page with Images and Animations
 'use client';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { 
   AlertTriangle, 
   BarChart3, 
@@ -15,7 +16,9 @@ import {
   ArrowRight,
   CheckCircle,
   Target,
-  Calendar
+  Calendar,
+  Star,
+  TrendingUp,
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 
@@ -160,41 +163,62 @@ const OverviewPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white pt-24 pb-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50/30 to-yellow-50/50 pt-24 pb-12 relative overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-20 left-10 w-96 h-96 bg-amber-400 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-80 h-80 bg-yellow-400 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <motion.div 
-          className="text-center mb-20"
-          initial={{ opacity: 0, y: 20 }}
+          className="text-center mb-8 py-16 relative"
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 1 }}
         >
-          <h1 className="text-4xl md:text-6xl font-royal font-bold text-gray-900 mb-6">
+          <motion.h1 
+            className="text-4xl md:text-6xl font-royal font-bold text-gray-900 mb-6"
+            initial={{ scale: 0.9 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
             Complete Overview
-          </h1>
-          <p className="text-xl text-gray-600 max-w-4xl mx-auto">
+          </motion.h1>
+          <motion.p 
+            className="text-xl text-gray-700 max-w-4xl mx-auto"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
             Understanding the challenges, celebrating our heritage, and charting the path forward 
             for Rajasthan&apos;s cultural renaissance
-          </p>
+          </motion.p>
         </motion.div>
 
-        {/* Navigation Tabs */}
-        <div className="flex flex-wrap justify-center gap-4 mb-16 sticky top-20 bg-white/80 backdrop-blur-lg py-4 rounded-2xl shadow-lg z-40">
-          <a href="#problems" className="flex items-center px-6 py-3 bg-red-100 text-red-700 rounded-full hover:bg-red-200 transition-colors">
+        {/* Animated Navigation Tabs */}
+        <motion.div 
+          className="flex flex-wrap justify-center gap-4 mb-16 sticky top-20 py-4 rounded-2xl z-40"
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+        >
+          <a href="#problems" className="flex items-center px-6 py-3 bg-gradient-to-r from-red-100 to-red-200 text-red-700 rounded-full hover:from-red-200 hover:to-red-300 transition-all transform hover:scale-105 shadow-lg">
             <AlertTriangle className="h-4 w-4 mr-2" />
             The Problems
           </a>
-          <a href="#showcase" className="flex items-center px-6 py-3 bg-blue-100 text-blue-700 rounded-full hover:bg-blue-200 transition-colors">
+          <a href="#showcase" className="flex items-center px-6 py-3 bg-gradient-to-r from-blue-100 to-blue-200 text-blue-700 rounded-full hover:from-blue-200 hover:to-blue-300 transition-all transform hover:scale-105 shadow-lg">
             <Award className="h-4 w-4 mr-2" />
             Our Heritage
           </a>
-          <a href="#vision" className="flex items-center px-6 py-3 bg-green-100 text-green-700 rounded-full hover:bg-green-200 transition-colors">
+          <a href="#vision" className="flex items-center px-6 py-3 bg-gradient-to-r from-green-100 to-green-200 text-green-700 rounded-full hover:from-green-200 hover:to-green-300 transition-all transform hover:scale-105 shadow-lg">
             <Target className="h-4 w-4 mr-2" />
             Our Vision
           </a>
-        </div>
+        </motion.div>
 
-        {/* Problems Section */}
+        {/* Problems Section with Image Integration */}
         <section id="problems" className="mb-32">
           <motion.div 
             className="text-center mb-16"
@@ -211,30 +235,61 @@ const OverviewPage = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {problems.map((problem, index) => (
-              <motion.div
-                key={index}
-                className="bg-gray-50 p-8 rounded-xl hover:shadow-lg transition-all duration-300 hover:bg-gradient-to-br hover:from-amber-50 hover:to-yellow-50"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
-                <div className="text-amber-600 mb-4">{problem.icon}</div>
-                <h3 className="text-xl font-semibold mb-3">{problem.title}</h3>
-                <p className="text-gray-600 mb-4">{problem.description}</p>
-                <div className="bg-red-50 p-3 rounded-lg mb-3">
-                  <p className="text-red-700 text-sm"><strong>Impact:</strong> {problem.impact}</p>
+          {/* Problems with Vertical Image */}
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-12">
+            <motion.div 
+              className="lg:col-span-1"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <div className="relative h-[600px] rounded-2xl overflow-hidden shadow-xl">
+                <Image
+                  src="/14.jpeg"
+                  alt="Rajasthan Palace"
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                <div className="absolute bottom-6 left-6 text-white">
+                  <h3 className="text-xl font-bold mb-2">Global Backdrop</h3>
+                  <p className="text-sm">Yet no local stories</p>
                 </div>
-                <div className="bg-green-50 p-3 rounded-lg">
-                  <p className="text-green-700 text-sm"><strong>Solution:</strong> {problem.solution}</p>
-                </div>
-              </motion.div>
-            ))}
+              </div>
+            </motion.div>
+
+            <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-6">
+              {problems.map((problem, index) => (
+                <motion.div
+                  key={index}
+                  className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-amber-200"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  whileHover={{ y: -5 }}
+                >
+                  <motion.div 
+                    className="text-amber-600 mb-4"
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {problem.icon}
+                  </motion.div>
+                  <h3 className="text-lg font-semibold mb-3 text-gray-900">{problem.title}</h3>
+                  <p className="text-gray-600 mb-4 text-sm">{problem.description}</p>
+                  <div className="bg-red-50 p-3 rounded-lg mb-3">
+                    <p className="text-red-700 text-xs"><strong>Impact:</strong> {problem.impact}</p>
+                  </div>
+                  <div className="bg-green-50 p-3 rounded-lg">
+                    <p className="text-green-700 text-xs"><strong>Solution:</strong> {problem.solution}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </section>
 
-        {/* Showcase Section */}
+        {/* Enhanced Showcase Section */}
         <section id="showcase" className="mb-32">
           <motion.div 
             className="text-center mb-16"
@@ -251,50 +306,79 @@ const OverviewPage = () => {
             </p>
           </motion.div>
 
-          {/* Category Tabs */}
-          <div className="flex flex-wrap justify-center gap-3 mb-12">
-            {showcaseCategories.map((category) => (
-              <button
+          {/* Animated Category Tabs */}
+          <motion.div 
+            className="flex flex-wrap justify-center gap-3 mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            {showcaseCategories.map((category, index) => (
+              <motion.button
                 key={category.id}
                 onClick={() => setActiveShowcaseCategory(category.id)}
-                className={`flex items-center px-4 py-2 rounded-full transition-all text-sm ${
+                className={`flex items-center px-6 py-3 rounded-full transition-all text-sm font-medium shadow-lg ${
                   activeShowcaseCategory === category.id
-                    ? 'bg-amber-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    ? 'bg-gradient-to-r from-amber-600 to-yellow-600 text-white scale-110'
+                    : 'bg-white/80 text-gray-700 hover:bg-amber-50 hover:scale-105'
                 }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
               >
                 {category.icon}
                 <span className="ml-2">{category.label}</span>
-              </button>
+              </motion.button>
             ))}
-          </div>
+          </motion.div>
 
-          {/* Showcase Grid */}
+          {/* Enhanced Showcase Grid */}
           <motion.div 
-            className="grid grid-cols-1 md:grid-cols-3 gap-6"
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
             key={activeShowcaseCategory}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
           >
             {showcaseData[activeShowcaseCategory].map((item, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow">
-                <div className="aspect-video bg-gradient-to-br from-amber-400 to-yellow-500 flex items-center justify-center">
-                  <Play className="h-8 w-8 text-white" />
+              <motion.div 
+                key={index} 
+                className="bg-white rounded-2xl shadow-xl border border-amber-100 overflow-hidden group hover:shadow-2xl transition-all duration-500"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                whileHover={{ y: -10, scale: 1.02 }}
+              >
+                <div className="aspect-video bg-gradient-to-br from-amber-400 via-yellow-500 to-amber-600 flex items-center justify-center relative overflow-hidden">
+                  <motion.div
+                    className="absolute inset-0 bg-black/20"
+                    initial={{ scale: 1 }}
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ duration: 0.5 }}
+                  />
+                  <motion.div
+                    whileHover={{ scale: 1.2, rotate: 5 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <Play className="h-10 w-10 text-white drop-shadow-lg" />
+                  </motion.div>
                 </div>
-                <div className="p-4">
-                  <h3 className="font-semibold text-gray-900 mb-1">{item.title}</h3>
-                  <div className="text-amber-600 text-sm font-medium mb-2">
+                <div className="p-6">
+                  <h3 className="font-bold text-gray-900 mb-2 text-lg group-hover:text-amber-700 transition-colors">{item.title}</h3>
+                  <div className="text-amber-600 text-sm font-semibold mb-3 flex items-center">
+                    <Star className="h-4 w-4 mr-1" />
                     {item.year || item.region || `${item.count} Items`}
                   </div>
-                  <p className="text-gray-600 text-sm">{item.description}</p>
+                  <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </motion.div>
         </section>
 
-        {/* Vision & Roadmap Section */}
+        {/* Enhanced Vision & Roadmap Section */}
         <section id="vision" className="mb-20">
           <motion.div 
             className="text-center mb-16"
@@ -309,85 +393,180 @@ const OverviewPage = () => {
               A comprehensive plan to rebuild Rajasthan&apos;s cultural and cinematic 
               identity from the ground up.
             </p>
-            <Button 
-              size="lg" 
-              onClick={() => window.open('/proposal.pdf', '_blank')}
-              className="bg-gradient-to-r from-amber-600 to-yellow-700 hover:from-amber-700 hover:to-yellow-800"
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <Download className="mr-2 h-5 w-5" />
-              Download Full Proposal
-            </Button>
+              <Button 
+                size="lg" 
+                onClick={() => window.open('/proposal.pdf', '_blank')}
+                className="bg-gradient-to-r from-amber-600 to-yellow-700 hover:from-amber-700 hover:to-yellow-800 shadow-xl"
+              >
+                <Download className="mr-2 h-5 w-5" />
+                Download Full Proposal
+              </Button>
+            </motion.div>
           </motion.div>
 
-          {/* Roadmap Timeline */}
+          {/* Enhanced Roadmap Timeline with Vertical Images */}
           <div className="relative">
-            <div className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 h-full w-1 bg-amber-200"></div>
+            <div className="absolute left-1/2 transform -translate-x-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-amber-600 via-yellow-500 to-amber-600"></div>
             
             {roadmap.map((phase, index) => (
               <motion.div
                 key={index}
-                className={`relative flex items-center mb-12 ${
-                  index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                className={`relative mb-16 flex items-center ${
+                  index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'
                 }`}
                 initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
               >
                 {/* Timeline dot */}
-                <div className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 w-8 h-8 bg-amber-600 rounded-full border-4 border-white shadow-lg z-10 flex items-center justify-center">
-                  <Calendar className="h-4 w-4 text-white" />
-                </div>
-                
+                <motion.div 
+                  className="absolute left-1/2 transform -translate-x-1/2 w-12 h-12 bg-gradient-to-r from-amber-600 to-yellow-600 rounded-full border-4 border-white shadow-xl z-20 flex items-center justify-center"
+                  whileHover={{ scale: 1.2 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Calendar className="h-6 w-6 text-white" />
+                </motion.div>
+
                 {/* Content */}
-                <div className={`ml-16 md:ml-0 md:w-5/12 ${index % 2 === 0 ? 'md:mr-auto' : 'md:ml-auto'}`}>
-                  <div className="bg-white p-6 rounded-xl shadow-lg border border-amber-100">
-                    <div className="text-2xl font-bold text-amber-600 mb-2">{phase.year}</div>
-                    <h3 className="text-xl font-royal font-bold text-gray-900 mb-4">{phase.title}</h3>
-                    <ul className="space-y-2">
+                <div className={`w-5/12 ${index % 2 === 0 ? 'pr-8' : 'pl-8'}`}>
+                  <motion.div 
+                    className="bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-xl border border-amber-200 hover:shadow-2xl transition-all duration-300"
+                    whileHover={{ scale: 1.02, y: -5 }}
+                  >
+                    <div className="text-3xl font-bold text-amber-600 mb-3 flex items-center">
+                      {phase.year}
+                      <motion.div
+                        animate={{ rotate: [0, 10, -10, 0] }}
+                        transition={{ duration: 2, repeat: Infinity, delay: index * 0.5 }}
+                      >
+                        <Star className="h-8 w-8 ml-3 text-yellow-500" />
+                      </motion.div>
+                    </div>
+                    <h3 className="text-2xl font-royal font-bold text-gray-900 mb-6">{phase.title}</h3>
+                    <ul className="space-y-4">
                       {phase.items.map((item, itemIndex) => (
-                        <li key={itemIndex} className="flex items-start">
-                          <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
-                          <span className="text-gray-700 text-sm">{item}</span>
-                        </li>
+                        <motion.li 
+                          key={itemIndex} 
+                          className="flex items-start"
+                          initial={{ opacity: 0, x: 20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.5, delay: itemIndex * 0.1 }}
+                        >
+                          <motion.div
+                            whileHover={{ scale: 1.2 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 mr-4 flex-shrink-0" />
+                          </motion.div>
+                          <span className="text-gray-700">{item}</span>
+                        </motion.li>
                       ))}
                     </ul>
-                  </div>
+                  </motion.div>
+                </div>
+
+                {/* Vertical Image */}
+                <div className={`w-5/12 ${index % 2 === 0 ? 'pl-8' : 'pr-8'}`}>
+                  <motion.div 
+                    className="relative h-[600px] rounded-2xl overflow-hidden shadow-xl"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8, delay: 0.3 }}
+                    whileHover={{ scale: 1.02 }}
+                  >
+                    <Image
+                      src={index === 0 ? "/4.jpeg" : index === 1 ? "/16.jpeg" : index === 2 ? "/12.jpeg" : "/13.jpeg"}
+                      alt={`Vision ${phase.year}`}
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-amber-900/80 via-transparent to-transparent"></div>
+                    <div className="absolute bottom-6 left-6 text-white">
+                      <h3 className="text-2xl font-bold mb-2">{phase.year}</h3>
+                      <p className="text-lg">{phase.title}</p>
+                    </div>
+                    <motion.div 
+                      className="absolute top-6 right-6"
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                    >
+                      <TrendingUp className="h-10 w-10 text-amber-300" />
+                    </motion.div>
+                  </motion.div>
                 </div>
               </motion.div>
             ))}
           </div>
         </section>
 
-        {/* Call to Action */}
+        {/* Enhanced Call to Action */}
         <motion.section 
-          className="bg-gradient-to-br from-charcoal-900 via-amber-800/20 to-crimson-800/20 rounded-2xl p-12 text-center text-white"
+          className="relative bg-gradient-to-br from-amber-900 via-yellow-800 to-amber-800 rounded-3xl p-12 text-center text-white overflow-hidden"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-3xl md:text-4xl font-royal font-bold mb-6">
-            Ready to Be Part of the Solution?
-          </h2>
-          <p className="text-xl text-white/90 mb-8 max-w-3xl mx-auto">
-            From identifying problems to showcasing our heritage and planning our future - 
-            every step requires your support and participation.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              size="lg" 
-              className="bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-black"
+          {/* Animated background elements */}
+          <motion.div 
+            className="absolute top-0 left-0 w-32 h-32 bg-white/10 rounded-full"
+            animate={{ x: [0, 50, 0], y: [0, 30, 0] }}
+            transition={{ duration: 6, repeat: Infinity }}
+          />
+          <motion.div 
+            className="absolute bottom-0 right-0 w-24 h-24 bg-white/10 rounded-full"
+            animate={{ x: [0, -30, 0], y: [0, -20, 0] }}
+            transition={{ duration: 4, repeat: Infinity }}
+          />
+          
+          <div className="relative z-10">
+            <motion.h2 
+              className="text-3xl md:text-4xl font-royal font-bold mb-6"
+              initial={{ scale: 0.9 }}
+              whileInView={{ scale: 1 }}
+              transition={{ duration: 0.5 }}
             >
-              <Users className="mr-2 h-5 w-5" />
-              Join the Movement
-            </Button>
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="border-white text-white hover:bg-white/10"
+              Ready to Be Part of the Solution?
+            </motion.h2>
+            <motion.p 
+              className="text-xl text-white/90 mb-8 max-w-3xl mx-auto"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
             >
-              Learn More
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+              From identifying problems to showcasing our heritage and planning our future - 
+              every step requires your support and participation.
+            </motion.p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button 
+                  size="lg" 
+                  className="bg-white text-amber-800 hover:bg-gray-100 shadow-xl"
+                >
+                  <Users className="mr-2 h-5 w-5" />
+                  Join the Movement
+                </Button>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="border-2 border-white text-white hover:bg-white/10"
+                >
+                  Learn More
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </motion.div>
+            </div>
           </div>
         </motion.section>
       </div>

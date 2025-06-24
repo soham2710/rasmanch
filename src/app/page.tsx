@@ -1,4 +1,4 @@
-// app/page.tsx - Improved Home Page with Visible Images
+// app/page.tsx - Homepage with Video Only and Text Slider
 'use client';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -9,11 +9,12 @@ import {
   Users, 
   Award, 
   ArrowRight, 
-  Play,
   Star,
   MapPin,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Volume2,
+  VolumeX
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Stats } from '@/types';
@@ -25,33 +26,30 @@ const HomePage = () => {
     artists: 0,
     cities: 0
   });
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentTextSlide, setCurrentTextSlide] = useState(0);
+  const [isVideoMuted, setIsVideoMuted] = useState(true);
 
-  // Slider content with image paths
-  const slides = [
+  // Text content for slider below video
+  const textSlides = [
     {
-      image: "/12.jpeg",
       title: "राजस्थानी कहानियाँ",
       subtitle: "राजस्थान के पर्दे पर",
       description: "Reviving the legacy of Rajasthani cinema, arts, and culture through vision, unity, and structured development"
     },
     {
-      image: "/5.jpeg", 
+      title: "Experience the Vision",
+      subtitle: "See Our Mission in Action",
+      description: "Watch how we're transforming Rajasthan's cultural landscape through innovative initiatives"
+    },
+    {
       title: "Palaces, Pearls",
       subtitle: "And Pure Majesty",
       description: "Experience the grandeur of Rajasthan's royal heritage through immersive storytelling"
     },
     {
-      image: "/4.jpeg",
       title: "Folk Traditions",
       subtitle: "Cultural Renaissance",
       description: "Preserving and promoting centuries-old folk art, music, and dance traditions"
-    },
-    {
-      image: "/4.jpeg",
-      title: "Future of Cinema",
-      subtitle: "Regional Excellence",
-      description: "Building world-class infrastructure for Rajasthani film and media production"
     }
   ];
 
@@ -70,21 +68,23 @@ const HomePage = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Auto-advance slider
+  // Auto-advance text slider
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
+      setCurrentTextSlide((prev) => (prev + 1) % textSlides.length);
     }, 6000);
     return () => clearInterval(timer);
-  }, [slides.length]);
+  }, [textSlides.length]);
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  const nextTextSlide = () => {
+    setCurrentTextSlide((prev) => (prev + 1) % textSlides.length);
   };
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  const prevTextSlide = () => {
+    setCurrentTextSlide((prev) => (prev - 1 + textSlides.length) % textSlides.length);
   };
+
+  const currentTextData = textSlides[currentTextSlide];
 
   const problems = [
     {
@@ -121,114 +121,111 @@ const HomePage = () => {
 
   return (
     <div className="overflow-hidden">
-      {/* Hero Section with Slider */}
-      <section className="relative min-h-screen flex items-center justify-center">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentSlide}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
-            className="absolute inset-0"
+      {/* Hero Section with Video Only */}
+      <section className="relative h-screen flex items-center justify-center">
+        <div className="absolute inset-0">
+          <video
+            className="w-full h-full object-cover"
+            autoPlay
+            loop
+            muted={isVideoMuted}
+            playsInline
+            style={{ animationDelay: '2s' }}
           >
-            {/* Background Image */}
-            <div 
-              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-              style={{
-                backgroundImage: `url('${slides[currentSlide].image}')`,
-              }}
-            >
-              {/* Dark overlay for text readability */}
-              <div className="absolute inset-0 bg-black/50"></div>
-              
-              {/* Gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/40"></div>
-              
-              {/* Royal pattern overlay */}
-              <div className="absolute inset-0 opacity-10" style={{
-                backgroundImage: `
-                  radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.3) 2px, transparent 2px),
-                  radial-gradient(circle at 80% 50%, rgba(220, 38, 127, 0.2) 2px, transparent 2px),
-                  radial-gradient(circle at 40% 80%, rgba(16, 185, 129, 0.2) 2px, transparent 2px)
-                `,
-                backgroundSize: '100px 100px, 150px 150px, 200px 200px'
-              }}></div>
-            </div>
-          </motion.div>
-        </AnimatePresence>
+            <source src="/vid2.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          {/* Video overlay */}
+          <div className="absolute inset-0 bg-black/40"></div>
+          
+          {/* Video Controls */}
+          <button
+            onClick={() => setIsVideoMuted(!isVideoMuted)}
+            className="absolute top-4 right-4 p-3 bg-black/50 hover:bg-black/70 rounded-full backdrop-blur-sm transition-all z-10"
+            aria-label={isVideoMuted ? "Unmute video" : "Mute video"}
+          >
+            {isVideoMuted ? (
+              <VolumeX className="h-5 w-5 text-white" />
+            ) : (
+              <Volume2 className="h-5 w-5 text-white" />
+            )}
+          </button>
+        </div>
+      </section>
 
-        {/* Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.3 }}
-          >
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-royal font-bold text-white mb-6 drop-shadow-lg">
-              {slides[currentSlide].title}
-              <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600">
-                {slides[currentSlide].subtitle}
-              </span>
-            </h1>
-            <p className="text-xl md:text-2xl text-white/95 mb-8 max-w-4xl mx-auto drop-shadow-md">
-              {slides[currentSlide].description}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+      {/* Content Section with Text Slider */}
+      <section className="py-12 bg-gradient-to-br from-gray-50 to-amber-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentTextSlide}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                transition={{ duration: 0.8 }}
+              >
+                <h1 className="text-4xl md:text-6xl lg:text-7xl font-royal font-bold text-gray-900 mb-6">
+                  {currentTextData.title}
+                  <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-700">
+                    {currentTextData.subtitle}
+                  </span>
+                </h1>
+                <p className="text-lg md:text-xl text-gray-700 mb-8 max-w-4xl mx-auto">
+                  {currentTextData.description}
+                </p>
+              </motion.div>
+            </AnimatePresence>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
               <Link href="/support">
-                <Button size="lg" className="bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-700 hover:from-amber-700 hover:via-yellow-700 hover:to-amber-800 text-black shadow-2xl transform hover:scale-105 transition-all duration-300">
+                <Button size="lg" className="bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-700 hover:from-amber-700 hover:via-yellow-700 hover:to-amber-800 text-white shadow-2xl transform hover:scale-105 transition-all duration-300">
                   <Users className="mr-2 h-5 w-5" />
                   Join the Movement
                 </Button>
               </Link>
-              <Button variant="outline" size="lg" className="border-2 border-white text-white hover:bg-white/15 backdrop-blur-sm shadow-xl">
-                <Play className="mr-2 h-5 w-5" />
-                Watch Vision Video
-              </Button>
             </div>
-          </motion.div>
-        </div>
 
-        {/* Slider Controls */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
-          <div className="flex items-center space-x-4 bg-black/30 backdrop-blur-md rounded-full px-6 py-3">
-            <button
-              onClick={prevSlide}
-              className="p-2 bg-white/20 hover:bg-white/30 rounded-full backdrop-blur-sm transition-all hover:scale-110"
-              aria-label="Previous slide"
-            >
-              <ChevronLeft className="h-5 w-5 text-white" />
-            </button>
-            
-            <div className="flex space-x-2">
-              {slides.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentSlide(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === currentSlide 
-                      ? 'bg-amber-500 scale-125 shadow-lg' 
-                      : 'bg-white/50 hover:bg-white/75'
-                  }`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
+            {/* Text Slider Controls */}
+            <div className="flex items-center justify-center space-x-4">
+              <button
+                onClick={prevTextSlide}
+                className="p-2 bg-amber-100 hover:bg-amber-200 rounded-full transition-all hover:scale-110"
+                aria-label="Previous text"
+              >
+                <ChevronLeft className="h-5 w-5 text-amber-700" />
+              </button>
+              
+              <div className="flex space-x-2">
+                {textSlides.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentTextSlide(index)}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      index === currentTextSlide 
+                        ? 'bg-amber-600 scale-125 shadow-lg' 
+                        : 'bg-amber-300 hover:bg-amber-400'
+                    }`}
+                    aria-label={`Go to text ${index + 1}`}
+                  />
+                ))}
+              </div>
+              
+              <button
+                onClick={nextTextSlide}
+                className="p-2 bg-amber-100 hover:bg-amber-200 rounded-full transition-all hover:scale-110"
+                aria-label="Next text"
+              >
+                <ChevronRight className="h-5 w-5 text-amber-700" />
+              </button>
             </div>
-            
-            <button
-              onClick={nextSlide}
-              className="p-2 bg-white/20 hover:bg-white/30 rounded-full backdrop-blur-sm transition-all hover:scale-110"
-              aria-label="Next slide"
-            >
-              <ChevronRight className="h-5 w-5 text-white" />
-            </button>
           </div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 bg-gradient-to-r from-amber-50 via-yellow-50 to-amber-50">
+      <section className="py-12 bg-gradient-to-r from-amber-50 via-yellow-50 to-amber-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
@@ -299,7 +296,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Vision Section */}
+      {/* Vision Section with Image */}
       <section className="py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -344,8 +341,13 @@ const HomePage = () => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <div className="aspect-video bg-gradient-to-br from-amber-500/20 to-yellow-500/20 rounded-xl backdrop-blur-sm border border-white/10 flex items-center justify-center shadow-2xl">
-                <Play className="h-20 w-20 text-white/80 hover:text-white transition-colors cursor-pointer" />
+              <div 
+                className="aspect-video bg-cover bg-center rounded-xl shadow-2xl"
+                style={{
+                  backgroundImage: "url('/5.jpeg')",
+                }}
+              >
+                <div className="absolute inset-0 bg-black/30 rounded-xl"></div>
               </div>
               <div className="absolute -bottom-6 -right-6 bg-gradient-to-r from-amber-500 to-yellow-600 p-6 rounded-xl shadow-xl">
                 <span className="font-bold text-black text-lg">2025-2030 Roadmap</span>
@@ -363,10 +365,10 @@ const HomePage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-3xl md:text-5xl font-royal font-bold text-black mb-6">
+            <h2 className="text-3xl md:text-5xl font-royal font-bold text-white mb-6">
               Be Part of the Renaissance
             </h2>
-            <p className="text-xl text-black/80 mb-8 max-w-3xl mx-auto">
+            <p className="text-xl text-white/90 mb-8 max-w-3xl mx-auto">
               Whether you&apos;re an artist, educator, policymaker, or cultural enthusiast - 
               your voice matters in this movement.
             </p>
@@ -378,7 +380,7 @@ const HomePage = () => {
                 </Button>
               </Link>
               <Link href="/contact">
-                <Button size="lg" variant="outline" className="border-2 border-black text-black hover:bg-black/10 shadow-lg">
+                <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white/10 shadow-lg">
                   Get in Touch
                 </Button>
               </Link>

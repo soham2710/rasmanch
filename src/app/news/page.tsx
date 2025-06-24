@@ -1,91 +1,103 @@
-// app/news/page.tsx - Updated News & Events Page with New Branding
+// app/news/page.tsx - News Page with Gold Colors and Readable Text
 'use client';
-import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, MapPin, ExternalLink } from 'lucide-react';
+import { Calendar, MapPin, ExternalLink, Star, Award, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
-import { Event, NewsItem } from '@/types';
 
 const NewsPage = () => {
-  const [, setEvents] = useState<Event[]>([]);
-  const [, setNews] = useState<NewsItem[]>([]);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const upcomingEvents: Event[] = [
+  // Static data - no useState/useEffect to avoid the React error
+  const upcomingEvents = [
     {
-      title: "Rajasthan Cultural Festival 2025",
-      date: "March 15-17, 2025",
+      title: "IIFFCA Rajasthan Edition 2026",
+      date: "May 5-7, 2026",
+      location: "Jaipur Exhibition & Convention Centre",
+      description: "Iconic International Film & Creative Awards showcasing cinematic excellence and digital innovation",
+      status: "upcoming" as const
+    },
+    {
+      title: "IIFA 26th Press Confluence",
+      date: "March 7-9, 2026",
       location: "Jaipur",
-      description: "Three-day celebration of Rajasthani arts, music, and cinema",
-      status: "upcoming"
+      description: "Bollywood and digital media confluence bringing global attention to Rajasthan",
+      status: "upcoming" as const
     },
     {
-      title: "Film Education Workshop",
-      date: "April 5, 2025", 
-      location: "Jodhpur University",
-      description: "Introduction to filmmaking for college students",
-      status: "registration"
+      title: "Rajasthan International Film Festival",
+      date: "January 31 - February 4, 2026",
+      location: "Jodhpur",
+      description: "Regional cinema showcase celebrating local and international films",
+      status: "registration" as const
     },
     {
-      title: "Folk Artist Recognition Ceremony",
-      date: "May 20, 2025",
-      location: "Udaipur",
-      description: "Honoring traditional artists and their contributions",
-      status: "upcoming"
-    },
-    {
-      title: "Regional Cinema Symposium",
-      date: "June 10, 2025",
-      location: "Jaisalmer",
-      description: "Panel discussions on the future of Rajasthani cinema",
-      status: "registration"
+      title: "MTV India Music Summit Rajasthan",
+      date: "October 12-14, 2025",
+      location: "Jaipur",
+      description: "Music industry summit focusing on brand partnerships and artist development",
+      status: "registration" as const
     }
   ];
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const newsItems: NewsItem[] = [
+  const newsItems = [
     {
-      title: "Screen Stage Forum Gains 1000+ Supporters",
+      title: "IIFFCA Announces Major Rajasthan Partnership",
+      date: "February 25, 2025",
+      summary: "Iconic International Film & Creative Awards selects Rajasthan as premier destination, bringing global recognition to regional content creation",
+      category: "Awards"
+    },
+    {
+      title: "Complete Media & Entertainment Calendar Unveiled",
+      date: "February 22, 2025",
+      summary: "Rajasthan to host 8 major M&E events in 2025-26, positioning state as India's cultural and cinematic hub",
+      category: "Industry"
+    },
+    {
+      title: "Jaipur Exhibition Centre Upgrades for IIFFCA 2026",
       date: "February 20, 2025",
-      summary: "Milestone reached as movement gains momentum across Rajasthan with artists, educators, and officials joining",
+      summary: "₹25 crore infrastructure enhancement to accommodate international film awards and tech expo",
+      category: "Infrastructure"
+    },
+    {
+      title: "Screen Stage Forum Gains 1500+ Members",
+      date: "February 18, 2025",
+      summary: "Milestone reached as Rajasthan Arts, Culture and Cinema Forum gains momentum across the state",
       category: "Community"
     },
     {
-      title: "Government Approves Cultural Infrastructure Fund",
+      title: "OTT Platforms Show Interest in Rajasthani Content",
       date: "February 15, 2025",
-      summary: "₹50 crore allocated for developing cultural facilities across Rajasthan",
+      summary: "Major streaming services commit to funding regional language productions following forum initiatives",
+      category: "Digital"
+    },
+    {
+      title: "Film City Project Gets Government Approval",
+      date: "February 12, 2025",
+      summary: "Rajasthan government approves 500-acre film city project near Jaipur with international standards",
       category: "Government"
-    },
-    {
-      title: "International Film Festival Shows Interest",
-      date: "February 10, 2025", 
-      summary: "Major international festival considering Rajasthan as venue partner for regional cinema showcase",
-      category: "Cinema"
-    },
-    {
-      title: "University Partnerships Established",
-      date: "February 5, 2025",
-      summary: "Three major universities commit to introducing film and media studies programs",
-      category: "Education"
-    },
-    {
-      title: "Folk Artists Digital Archive Project Launched",
-      date: "January 30, 2025",
-      summary: "Initiative to document and preserve traditional Rajasthani performing arts for future generations",
-      category: "Heritage"
-    },
-    {
-      title: "First Regional Cinema Script Competition Announced",
-      date: "January 25, 2025",
-      summary: "Young writers invited to submit scripts in Rajasthani dialects with cash prizes and production support",
-      category: "Cinema"
     }
   ];
 
-  useEffect(() => {
-    setEvents(upcomingEvents);
-    setNews(newsItems);
-  }, [newsItems, upcomingEvents]);
+  // IIFFCA Event Details
+  const iiffcaAgenda = [
+    "Opening Gala & Red Carpet: Celebration of cinematic and digital content",
+    "IIFFCA Awards Night: Live recognition across film, web series, podcasts, short films",
+    "Panel: 'Bridging Regional Content with Global Markets'",
+    "Tech Expo: OTT analytics, AR/VR storytelling, AI-driven post-production",
+    "Workshops: Multilingual content, digital distribution, NFT in media",
+    "Networking: Roundtables with distributors, festival jurors, global buyers",
+    "Closing Cinematic Concert: Live performance synced with film scores"
+  ];
+
+  // Complete Event Calendar
+  const eventCalendar = [
+    { city: "Jaipur", event: "IIFFCA Rajasthan Edition 2026", type: "Awards & Expo", dates: "May 5–7, 2026", focus: "Film, digital content, tech" },
+    { city: "Jaipur", event: "IIFA 26th Press Confluence", type: "Confluence", dates: "March 7–9, 2026", focus: "Bollywood, digital media" },
+    { city: "Jaipur", event: "IIFA Digital Awards & Media Tech Expo", type: "Expo", dates: "March 7–9, 2026", focus: "Web series, AR/VR, OTT tech" },
+    { city: "Jaipur", event: "Jaipur Film Market 2026", type: "Market & Summit", dates: "Jan 10–12, 2026", focus: "Film finance, co-productions" },
+    { city: "Jodhpur", event: "Rajasthan International Film Festival", type: "Festival", dates: "Jan 31–Feb 4, 2026", focus: "Regional cinema showcase" },
+    { city: "Jaipur", event: "MTV India Music Summit Rajasthan", type: "Summit", dates: "Oct 12–14, 2025", focus: "Music industry, partnerships" },
+    { city: "Udaipur", event: "Media & Storytelling Summit UGX", type: "Summit", dates: "Jan 11–13, 2026", focus: "Podcasts, immersive media" },
+    { city: "Jaipur", event: "Rajasthan Film Festival Awards 2025", type: "Awards", dates: "Sep 27–29, 2025", focus: "Regional cinema excellence" }
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 to-yellow-50 pt-24 pb-12">
@@ -103,6 +115,111 @@ const NewsPage = () => {
           <p className="text-xl text-gray-600 max-w-4xl mx-auto">
             Stay updated with the latest developments in our cultural revival movement
           </p>
+        </motion.div>
+
+        {/* IIFFCA Spotlight - Gold with Dark Text for Readability */}
+        <motion.div 
+          className="mb-16 bg-gradient-to-r from-amber-100 via-yellow-100 to-amber-200 rounded-2xl p-8 text-gray-900 border border-amber-300"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="flex items-center mb-6">
+            <Award className="h-10 w-10 mr-4 text-amber-700" />
+            <div>
+              <h2 className="text-3xl font-royal font-bold text-gray-900">IIFFCA Rajasthan Edition 2026</h2>
+              <p className="text-lg text-amber-800">Iconic International Film & Creative Awards</p>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div>
+              <div className="flex items-center mb-4">
+                <Calendar className="h-5 w-5 mr-2 text-amber-700" />
+                <span className="font-semibold text-gray-900">May 5–7, 2026</span>
+              </div>
+              <div className="flex items-center mb-6">
+                <MapPin className="h-5 w-5 mr-2 text-amber-700" />
+                <span className="font-semibold text-gray-900">Jaipur Exhibition & Convention Centre</span>
+              </div>
+              
+              <h3 className="text-xl font-bold mb-4 text-amber-800">Event Agenda:</h3>
+              <ul className="space-y-2">
+                {iiffcaAgenda.map((item, index) => (
+                  <li key={index} className="flex items-start">
+                    <Star className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0 text-amber-600" />
+                    <span className="text-sm text-gray-800">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            <div className="bg-amber-200/50 rounded-xl p-6 border border-amber-300">
+              <h3 className="text-xl font-bold mb-4 flex items-center text-amber-800">
+                <Globe className="h-5 w-5 mr-2" />
+                Why IIFFCA in Rajasthan?
+              </h3>
+              <ul className="space-y-3 text-sm text-gray-800">
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2 font-bold">✅</span>
+                  Complements existing IIFA + Digital initiatives
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2 font-bold">✅</span>
+                  Bridges traditional film, OTT, audio, and immersive media
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2 font-bold">✅</span>
+                  Leverages Jaipur&apos;s infrastructure and media spotlight
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2 font-bold">✅</span>
+                  Creates pan-India content awards platform
+                </li>
+              </ul>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Complete Event Calendar */}
+        <motion.div 
+          className="mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <h2 className="text-3xl font-royal font-bold text-gray-900 mb-8 text-center">
+            Complete Media & Entertainment Calendar
+          </h2>
+          
+          <div className="overflow-x-auto">
+            <table className="w-full bg-white rounded-xl shadow-lg border border-amber-200">
+              <thead className="bg-gradient-to-r from-amber-600 to-yellow-600 text-white">
+                <tr>
+                  <th className="px-6 py-4 text-left font-semibold">City</th>
+                  <th className="px-6 py-4 text-left font-semibold">Event</th>
+                  <th className="px-6 py-4 text-left font-semibold">Type</th>
+                  <th className="px-6 py-4 text-left font-semibold">Dates</th>
+                  <th className="px-6 py-4 text-left font-semibold">Focus Areas</th>
+                </tr>
+              </thead>
+              <tbody>
+                {eventCalendar.map((event, index) => (
+                  <tr key={index} className="border-b border-amber-50 hover:bg-amber-50/50 transition-colors">
+                    <td className="px-6 py-4 font-medium text-amber-700">{event.city}</td>
+                    <td className="px-6 py-4 font-semibold text-gray-900">{event.event}</td>
+                    <td className="px-6 py-4">
+                      <span className="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-sm font-medium">
+                        {event.type}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-gray-700">{event.dates}</td>
+                    <td className="px-6 py-4 text-gray-600 text-sm">{event.focus}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -126,7 +243,7 @@ const NewsPage = () => {
                     <span className={`px-3 py-1 rounded-full text-sm font-medium ${
                       event.status === 'registration' 
                         ? 'bg-green-100 text-green-800' 
-                        : 'bg-blue-100 text-blue-800'
+                        : 'bg-amber-100 text-amber-800'
                     }`}>
                       {event.status === 'registration' ? 'Open Registration' : 'Upcoming'}
                     </span>
@@ -169,10 +286,11 @@ const NewsPage = () => {
                   <div className="flex justify-between items-start mb-3">
                     <span className={`px-3 py-1 rounded-full text-sm font-medium ${
                       item.category === 'Government' ? 'bg-blue-100 text-blue-800' :
-                      item.category === 'Cinema' ? 'bg-purple-100 text-purple-800' :
+                      item.category === 'Awards' ? 'bg-purple-100 text-purple-800' :
+                      item.category === 'Industry' ? 'bg-indigo-100 text-indigo-800' :
+                      item.category === 'Infrastructure' ? 'bg-orange-100 text-orange-800' :
                       item.category === 'Community' ? 'bg-green-100 text-green-800' :
-                      item.category === 'Education' ? 'bg-amber-100 text-amber-800' :
-                      item.category === 'Heritage' ? 'bg-red-100 text-red-800' :
+                      item.category === 'Digital' ? 'bg-cyan-100 text-cyan-800' :
                       'bg-gray-100 text-gray-800'
                     }`}>
                       {item.category}
@@ -191,9 +309,9 @@ const NewsPage = () => {
           </div>
         </div>
 
-        {/* Newsletter Signup */}
+        {/* Newsletter Signup - Improved Readability */}
         <motion.div 
-          className="mt-20 bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-700 rounded-2xl p-8 text-center"
+          className="mt-20 bg-gradient-to-r from-amber-700 via-yellow-700 to-amber-800 rounded-2xl p-8 text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -201,7 +319,7 @@ const NewsPage = () => {
           <h3 className="text-2xl font-royal font-bold text-white mb-4">
             Stay Updated with Our Newsletter
           </h3>
-          <p className="text-white/90 mb-6 max-w-2xl mx-auto">
+          <p className="text-amber-100 mb-6 max-w-2xl mx-auto">
             Get the latest news, event announcements, and opportunities 
             directly in your inbox. Be the first to know about our initiatives.
           </p>
@@ -211,7 +329,7 @@ const NewsPage = () => {
               placeholder="Enter your email"
               className="px-4 py-3 rounded-lg flex-1 text-gray-900 focus:outline-none focus:ring-2 focus:ring-white"
             />
-            <Button className="bg-white text-amber-700 hover:bg-gray-100">
+            <Button className="bg-white text-amber-700 hover:bg-gray-100 font-semibold">
               Subscribe
             </Button>
           </div>
