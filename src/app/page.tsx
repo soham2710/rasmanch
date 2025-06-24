@@ -1,4 +1,4 @@
-// app/page.tsx - Homepage with Video Only and Text Slider
+// app/page.tsx - Homepage with Image Slider
 'use client';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -12,9 +12,7 @@ import {
   Star,
   MapPin,
   ChevronLeft,
-  ChevronRight,
-  Volume2,
-  VolumeX
+  ChevronRight
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Stats } from '@/types';
@@ -27,31 +25,25 @@ const HomePage = () => {
     cities: 0
   });
   const [currentTextSlide, setCurrentTextSlide] = useState(0);
-  const [isVideoMuted, setIsVideoMuted] = useState(true);
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
-  // Text content for slider below video
-  const textSlides = [
-    {
-      title: "राजस्थानी कहानियाँ",
-      subtitle: "राजस्थान के पर्दे पर",
-      description: "Reviving the legacy of Rajasthani cinema, arts, and culture through vision, unity, and structured development"
-    },
-    {
-      title: "Experience the Vision",
-      subtitle: "See Our Mission in Action",
-      description: "Watch how we're transforming Rajasthan's cultural landscape through innovative initiatives"
-    },
-    {
-      title: "Palaces, Pearls",
-      subtitle: "And Pure Majesty",
-      description: "Experience the grandeur of Rajasthan's royal heritage through immersive storytelling"
-    },
-    {
-      title: "Folk Traditions",
-      subtitle: "Cultural Renaissance",
-      description: "Preserving and promoting centuries-old folk art, music, and dance traditions"
-    }
+  // Image data with file extensions
+  const imageData = [
+    { name: '114', ext: 'jpg' },
+    { name: '115', ext: 'jpg' },
+    { name: '117', ext: 'jpeg' },
+    { name: '111', ext: 'jpg' },
+    { name: '116', ext: 'jpeg' },
+    { name: '112', ext: 'jpg' }
   ];
+
+  // Auto-advance image slider
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTextSlide((prev) => (prev + 1) % imageData.length); // Dynamic length based on imageData
+    }, 5000); // Change every 5 seconds for better viewing
+    return () => clearInterval(timer);
+  }, [imageData.length]);
 
   useEffect(() => {
     // Animate counter on mount
@@ -68,23 +60,19 @@ const HomePage = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Auto-advance text slider
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTextSlide((prev) => (prev + 1) % textSlides.length);
-    }, 6000);
-    return () => clearInterval(timer);
-  }, [textSlides.length]);
-
   const nextTextSlide = () => {
-    setCurrentTextSlide((prev) => (prev + 1) % textSlides.length);
+    setCurrentTextSlide((prev) => (prev + 1) % imageData.length);
   };
 
   const prevTextSlide = () => {
-    setCurrentTextSlide((prev) => (prev - 1 + textSlides.length) % textSlides.length);
+    setCurrentTextSlide((prev) => (prev - 1 + imageData.length) % imageData.length);
   };
 
-  const currentTextData = textSlides[currentTextSlide];
+  const currentTextData = {
+    title: "राजस्थानी कहानियाँ",
+    subtitle: "राजस्थान के पर्दे पर",
+    description: "Reviving the legacy of Rajasthani cinema, arts, and culture through vision, unity, and structured development"
+  };
 
   const problems = [
     {
@@ -121,37 +109,89 @@ const HomePage = () => {
 
   return (
     <div className="overflow-hidden">
-      {/* Hero Section with Video Only */}
+      {/* Hero Section with Image Slider */}
       <section className="relative h-screen flex items-center justify-center">
         <div className="absolute inset-0">
-          <video
-            className="w-full h-full object-cover"
-            autoPlay
-            loop
-            muted={isVideoMuted}
-            playsInline
-            style={{ animationDelay: '2s' }}
-          >
-            <source src="/vid2.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          {/* Video overlay */}
-          <div className="absolute inset-0 bg-black/40"></div>
-          
-          {/* Video Controls */}
-          <button
-            onClick={() => setIsVideoMuted(!isVideoMuted)}
-            className="absolute top-4 right-4 p-3 bg-black/50 hover:bg-black/70 rounded-full backdrop-blur-sm transition-all z-10"
-            aria-label={isVideoMuted ? "Unmute video" : "Mute video"}
-          >
-            {isVideoMuted ? (
-              <VolumeX className="h-5 w-5 text-white" />
-            ) : (
-              <Volume2 className="h-5 w-5 text-white" />
-            )}
-          </button>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentTextSlide}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.5 }}
+              className="w-full h-full"
+            >
+              <div 
+                className="w-full h-full bg-cover bg-center"
+                style={{
+                  backgroundImage: `url('/${imageData[currentTextSlide]?.name || '114'}.${imageData[currentTextSlide]?.ext || 'jpg'}')`
+                }}
+              />
+              {/* Image overlay - Lower opacity for clearer images (0.15 = 15% opacity, lower number = more transparent) */}
+              <div className="absolute inset-0 bg-black/15"></div>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Slider Dots - Enhanced visibility with better contrast */}
+          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
+            <div className="flex space-x-3">
+              {[0, 1, 2, 3, 4, 5].map((index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentTextSlide(index)}
+                  className={`w-4 h-4 rounded-full transition-all duration-500 border-2 ${
+                    index === currentTextSlide 
+                      ? 'bg-amber-500 border-amber-300 scale-125 shadow-lg shadow-amber-500/50' 
+                      : 'bg-white/70 border-white/90 hover:bg-white/90 hover:scale-110'
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </section>
+
+      {/* Video Modal */}
+      {isVideoModalOpen && (
+        <motion.div 
+          className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={() => setIsVideoModalOpen(false)}
+        >
+          <motion.div 
+            className="relative bg-black rounded-2xl overflow-hidden max-w-4xl w-full aspect-video shadow-2xl"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setIsVideoModalOpen(false)}
+              className="absolute top-4 right-4 z-10 p-2 bg-black/50 hover:bg-black/70 rounded-full backdrop-blur-sm transition-all"
+              aria-label="Close video"
+            >
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            
+            {/* Video Player */}
+            <video
+              className="w-full h-full object-cover"
+              controls
+              autoPlay
+              playsInline
+            >
+              <source src="/vid2.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </motion.div>
+        </motion.div>
+      )}
 
       {/* Content Section with Text Slider */}
       <section className="py-12 bg-gradient-to-br from-gray-50 to-amber-50">
@@ -185,6 +225,15 @@ const HomePage = () => {
                   Join the Movement
                 </Button>
               </Link>
+              <Button 
+                size="lg" 
+                variant="outline"
+                onClick={() => setIsVideoModalOpen(true)}
+                className="border-2 border-amber-600 text-amber-600 hover:bg-amber-50 shadow-lg transform hover:scale-105 transition-all duration-300"
+              >
+                <Film className="mr-2 h-5 w-5" />
+                Watch Video
+              </Button>
             </div>
 
             {/* Text Slider Controls */}
@@ -198,7 +247,7 @@ const HomePage = () => {
               </button>
               
               <div className="flex space-x-2">
-                {textSlides.map((_, index) => (
+                {imageData.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentTextSlide(index)}
