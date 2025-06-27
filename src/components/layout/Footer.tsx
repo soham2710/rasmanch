@@ -1,7 +1,7 @@
 // components/Layout/Footer.tsx - Navy Blue Footer with Logo
 import Link from 'next/link';
 import Image from 'next/image';
-import { Mail, Phone, MapPin, Facebook, Instagram, Youtube, Linkedin, Heart, Star } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Heart, Star } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -54,10 +54,8 @@ const Footer = () => {
             {/* Enhanced Social Links */}
             <div className="flex space-x-4">
               {[
-                { icon: Facebook, href: "#", label: "Facebook" },
-                { icon: Instagram, href: "#", label: "Instagram" },
-                { icon: Youtube, href: "#", label: "YouTube" },
-                { icon: Linkedin, href: "#", label: "LinkedIn" }
+                { icon: Facebook, href: "https://www.facebook.com/share/16tca7eVxP/", label: "Facebook" },
+                
               ].map((social) => (
                 <a 
                   key={social.label}
